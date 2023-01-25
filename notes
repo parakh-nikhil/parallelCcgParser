@@ -1,0 +1,43 @@
+
+/*
+
+Lexicon
+
+Finite set of word-category pairs
+
+w := X
+V ::= eats | sleeps
+TV ::= sees | hears
+VP ::= V | TV NP
+
+
+
+Questions:
+1) How should I represent start state
+*/
+
+/*
+
+Category
+
+All types of categories
+sentence
+verb phrase
+transitive verb
+noun phrase
+
+
+Harry      likes        apples
+np      (s\np)/np      np
+
+np = new NounPhrase()
+likes = tv = new RightSlash(new LeftSlash(new S(), new NP()), new NP())
+
+
+possible classes
+RightSlash()
+LeftSlash()
+S()
+NP()
+
+ */

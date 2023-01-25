@@ -1,0 +1,44 @@
+Starting symbol
+terminals
+non-termicals
+
+
+categories
+intransitive verb: s\np
+transitive verb: (s\np)/np
+ditransitive verb: ((s\np)/np)/np
+noun phrase: np
+
+
+
+harry likes apples
+s
+
+harry          likes apples
+np              (s\np)
+
+Harry      likes        apples
+np      (s\np)/np      np
+        (s/np)\np
+
+
+harry    apples     likes
+  np              (sp/np)\np
+
+# ellipses in english grammar
+
+
+
+
+harry ate an apple and george didn't
+
+
+
+
+
+transitive verb: (s\np)/np
+LeftSlash RightOperation(Category){
+    return LeftSlash category;
+}
+
+noun phrase: np
