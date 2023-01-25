@@ -5,7 +5,7 @@ public abstract class AtomicCategory extends Category{
     }
 
     @Override
-    public Category asSlash() throws Exception{
+    public SlashCategory asSlash() throws Exception{
         throw new Exception("Not a Slash Type Category");
     }
 }
