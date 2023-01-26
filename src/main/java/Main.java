@@ -1,12 +1,22 @@
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello CCG Parser");
-        NP tom = new NP();
-        NP apple = new NP();
-        S s = new S();
-        TV likes = new TV(new LeftSlash(s, tom), apple);
 
-        System.out.println(likes.getArgument());
+        Lexicon lexicon = new Lexicon();
+        lexicon.addEntry("Tom", new NP());
+        lexicon.addEntry("likes", new TV());
+        lexicon.addEntry("apples", new NP());
+
+        lexicon.addEntry("apples", new S());
+
+        for(Map.Entry<String, Set<Category>> entry: lexicon.entrySet()){
+            System.out.println(String.format("%s\t|\t%s", entry.getKey(), entry.getValue()));
+        }
 
     }
 }

@@ -6,6 +6,7 @@ abstract class Category {
     public abstract Boolean isSlash();
 
     public abstract SlashCategory asSlash() throws Exception;
+
 }
 
 
