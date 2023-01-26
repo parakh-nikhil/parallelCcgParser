@@ -1,5 +1,5 @@
 public class TV extends RightSlash{
-    public TV(Category target, Category argument) {
+    public TV(){
         super(new LeftSlash(new S(), new NP()), new NP());
     }
 }
