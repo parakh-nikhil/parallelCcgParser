@@ -1,5 +1,6 @@
 package Categories;
 
+//Definition: Prepositional Phrase
 public class PP extends AtomicCategory{
     String preposition;
 
