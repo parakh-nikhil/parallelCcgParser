@@ -7,8 +7,8 @@ Finite set of word-category pairs
 
 w := X
 V ::= eats | sleeps
-TV ::= sees | hears
-VP ::= V | TV NP
+Categories.TV ::= sees | hears
+VP ::= V | Categories.TV Categories.NP
 
 
 
@@ -18,7 +18,7 @@ Questions:
 
 /*
 
-Category
+Categories.Category
 
 All types of categories
 sentence
@@ -31,13 +31,13 @@ Harry      likes        apples
 np      (s\np)/np      np
 
 np = new NounPhrase()
-likes = tv = new RightSlash(new LeftSlash(new S(), new NP()), new NP())
+likes = tv = new Categories.RightSlash(new Categories.LeftSlash(new Categories.S(), new Categories.NP()), new Categories.NP())
 
 
 possible classes
-RightSlash()
-LeftSlash()
-S()
-NP()
+Categories.RightSlash()
+Categories.LeftSlash()
+Categories.S()
+Categories.NP()
 
  */

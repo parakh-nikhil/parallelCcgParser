@@ -1,4 +1,6 @@
-abstract class Category {
+package Categories;
+
+public abstract class Category {
     Boolean isSlash = null;
     public Category(){
     }

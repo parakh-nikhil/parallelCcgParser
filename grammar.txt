@@ -37,8 +37,8 @@ harry ate an apple and george didn't
 
 
 transitive verb: (s\np)/np
-LeftSlash RightOperation(Category){
-    return LeftSlash category;
+Categories.LeftSlash RightOperation(Categories.Category){
+    return Categories.LeftSlash category;
 }
 
 noun phrase: np

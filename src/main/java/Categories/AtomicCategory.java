@@ -1,3 +1,5 @@
+package Categories;
+
 public abstract class AtomicCategory extends Category{
     @Override
     public Boolean isSlash() {
@@ -6,6 +8,6 @@ public abstract class AtomicCategory extends Category{
 
     @Override
     public SlashCategory asSlash() throws Exception{
-        throw new Exception("Not a Slash Type Category");
+        throw new Exception("Not a Slash Type Categories.Category");
     }
 }

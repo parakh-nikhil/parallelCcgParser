@@ -1,3 +1,5 @@
+package Categories;
+
 public abstract class SlashCategory extends Category{
     Category target = null;
     Category argument = null;
