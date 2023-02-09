@@ -6,14 +6,15 @@ import java.util.Set;
 
 public class Lexicon extends HashMap<String, Set<Category>> {
     public void addEntry(String str, Category category){
-        Set<Category> newSet = null;
+        Set<Category> newSet;
         if(this.containsKey(str)){
             newSet = this.get(str);
         }
         else{
-            newSet = new HashSet<Category>();
+            newSet = new HashSet<>();
         }
         newSet.add(category);
         this.put(str, newSet);
     }
+
 }
