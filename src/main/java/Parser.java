@@ -1,11 +1,13 @@
 import Categories.Category;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Parser {
     private Lexicon lexicon;
     private ArrayList<ArrayList<Set<Category>>> chart;
+    private ArrayList<Set<Category>> sentenceCategories = new ArrayList<>();
 
     public Parser(Lexicon lexicon, ArrayList<ArrayList<Set<Category>>> chart) {
         this.lexicon = lexicon;
@@ -18,15 +20,32 @@ public class Parser {
     }
 
     public void parse(String sentence){
+        //TODO: Currently does not work with words like New York (or any entry that has space between it)
         String[] sentenceArray = sentence.split(" ");
+        this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
+        this.buildChartCells();
+        //start building chart
+    }
+
+    private ArrayList<Set<Category>> getCategoriesFromLexicon(String[] sentenceArray){
         ArrayList<Set<Category>> categories = new ArrayList<>();
         for(int i = 0 ; i < sentenceArray.length ; i++){
             String word = sentenceArray[i];
             categories.add(this.lexicon.get(word));
         }
-        this.chart.add(categories);
+        return categories;
     }
 
+    private void buildChartCells(){
+        for(int i = 0; i < this.sentenceCategories.size()-1 ; i++){
+            ArrayList<Set<Category>> chartRow = new ArrayList<>();
+            for (int j = 0 ; j < i+1 ; j++){
+                chartRow.add(new HashSet<Category>());
+            }
+            this.chart.add(chartRow);
+        }
+        this.chart.add(this.sentenceCategories);
+    }
     public ArrayList<ArrayList<Set<Category>>> getChart(){
         return this.chart;
     }
