@@ -1,5 +1,4 @@
 import Categories.Category;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +24,17 @@ public class Parser {
         this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
         this.buildChartCells();
         //start building chart
+
+        // for each span
+        for (int span = 2 ; span<this.sentenceCategories.size() ; span ++){
+            //for each start
+            for(int start = 0 ; start <= this.sentenceCategories.size() - span ; start++){
+                // for each break
+                for(int spanBreak = 1 ; spanBreak < span ; spanBreak++){
+                    //consider if [start - spanBreak] and [spanBreak+1 - span) combines
+                }
+            }
+        }
     }
 
     private ArrayList<Set<Category>> getCategoriesFromLexicon(String[] sentenceArray){
@@ -46,6 +56,7 @@ public class Parser {
         }
         this.chart.add(this.sentenceCategories);
     }
+
     public ArrayList<ArrayList<Set<Category>>> getChart(){
         return this.chart;
     }
