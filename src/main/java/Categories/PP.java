@@ -7,5 +7,11 @@ public class PP extends AtomicCategory{
     public PP(String preposition){
         super();
         this.preposition = preposition;
+
+    }
+
+    @Override
+    public String toString(){
+        return(String.format("PP[%s]",this.preposition));
     }
 }

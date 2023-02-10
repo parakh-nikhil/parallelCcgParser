@@ -29,6 +29,27 @@ public abstract class SlashCategory extends Category{
         return this;
     }
 
+    public abstract String getSlashSign();
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        if(this.getResult().isSlash()){
+            sb.append("(");
+            sb.append(this.getResult());
+            sb.append(")");
+        }else{
+            sb.append(this.getResult());
+        }
+        sb.append(this.getSlashSign());
+        if(this.getArgument().isSlash()){
+            sb.append("(");
+            sb.append(this.getArgument());
+            sb.append(")");
+        }else{
+            sb.append(this.getArgument());
+        }
+        return sb.toString();
+    }
 
 
 }

@@ -10,4 +10,12 @@ public class RightSlash extends SlashCategory {
         return true;
     }
 
+    @Override
+    public String getSlashSign() {
+        return "/";
+    }
+
+
+
+
 }

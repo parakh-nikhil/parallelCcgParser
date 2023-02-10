@@ -10,4 +10,10 @@ public class LeftSlash extends SlashCategory {
         return false;
     }
 
+    @Override
+    public String getSlashSign() {
+        return "\\";
+    }
+
+
 }
