@@ -26,6 +26,9 @@ public class Parser {
         //TODO: Currently does not work with words like New York (or any entry that has space between it)
         String[] sentenceArray = sentence.split(" ");
         this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
+        if(sentenceCategories == null){
+            return null;
+        }
         this.buildChartCells();
         //start building chart
 
@@ -105,9 +108,21 @@ public class Parser {
     }
     private ArrayList<Set<Category>> getCategoriesFromLexicon(String[] sentenceArray){
         ArrayList<Set<Category>> categories = new ArrayList<>();
+        Set<String> notFound = new HashSet<>();
         for(int i = 0 ; i < sentenceArray.length ; i++){
             String word = sentenceArray[i];
-            categories.add(this.lexicon.get(word));
+            if(lexicon.containsKey(word)){
+                categories.add(this.lexicon.get(word));
+            }
+            else{
+                notFound.add(word);
+
+            }
+
+        }
+        if(!notFound.isEmpty()){
+            System.out.println(String.format("Word%s %s not found in the given lexicon.",(notFound.size() > 1 ? "s" : ""), notFound));
+            return null;
         }
         return categories;
     }

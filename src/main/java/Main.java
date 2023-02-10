@@ -13,7 +13,7 @@ public class Main {
         Lexicon lexicon = new Lexicon();
         lexicon.initializeEntries();
 
-        List<String> sentences = new ArrayList<>(Arrays.asList("Tom likes apples", "I booked a flight to KTM"));
+        List<String> sentences = new ArrayList<>(Arrays.asList("Tom likes apples", "I booked a flight to KTM", "I want apples", "I want to fly a kite in the sky"));
 
         ArrayList<ArrayList<Set<Category>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
@@ -36,7 +36,6 @@ public class Main {
             }
             parser.clearChart();
             System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------");
-
 
         }
 
