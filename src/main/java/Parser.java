@@ -44,19 +44,14 @@ public class Parser {
                     Set<Category> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
 
                     //if yes for any, update the chart[span-1][start] cell
-                    Iterator<Category> cell1Iterator = cell1.iterator();
-                    Iterator<Category> cell2Iterator = cell2.iterator();
-                    while(cell1Iterator.hasNext()){
-                        Category c1Entry = cell1Iterator.next();
-                        while(cell2Iterator.hasNext()){
-                            Category c2Entry = cell2Iterator.next();
-                            Category resultCell = this.combine(c1Entry,c2Entry);
+                    for(Category c1 : cell1){
+                        for(Category c2 : cell2){
+                            Category resultCell = this.combine(c1,c2);
                             if(resultCell != null){
                                 result.add(resultCell);
                             }
                         }
                     }
-
                 }
                 if(result.isEmpty()){
                     result.add(null);

@@ -22,6 +22,10 @@ public class Lexicon extends HashMap<String, Set<Category>> {
         TV tv = new TV();
         Det det = new Det();
         PP pp_to = new PP("to");
+        PP pp_than = new PP("than");
+        S s = new S();
+        ADJ adj = new ADJ();
+
 
         this.addEntry("Tom", np);
         this.addEntry("likes", tv);
@@ -33,5 +37,11 @@ public class Lexicon extends HashMap<String, Set<Category>> {
         this.addEntry("to", new RightSlash(pp_to, np));
         this.addEntry("flight", new LeftSlash(new RightSlash(np, pp_to), det));
         this.addEntry("KTM", np);
+
+        this.addEntry("than", pp_than);
+        this.addEntry("1",np);
+        this.addEntry("5",np);
+        this.addEntry("is", new RightSlash(new LeftSlash(s,np),adj));
+        this.addEntry("less", new RightSlash(adj,pp_than));
     }
 }
