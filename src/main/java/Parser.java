@@ -28,16 +28,17 @@ public class Parser {
         //start building chart
 
         // for each span
-        for (int span = 2 ; span<this.sentenceCategories.size() ; span ++){
+        for (int span = 2 ; span<this.sentenceCategories.size() + 1 ; span ++){
             //for each start
             for(int start = 0 ; start <= this.sentenceCategories.size() - span ; start++){
                 // for each break
+                Set<Category> result = new HashSet<>();
                 for(int spanBreak = start+1 ; spanBreak < start+span ; spanBreak++){
                     //TODO: consider if [start - spanBreak] and [spanBreak+1 - span) combines
                     Set<Category> cell1 = this.chart.get(spanBreak-start-1).get(start); //WORKS
                     Set<Category> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak); //WORKS
                     //if yes for any, update the chart[span-1][start] cell
-                    Set<Category> result = new HashSet<>();
+
                     Iterator<Category> cell1Iterator = cell1.iterator();
                     Iterator<Category> cell2Iterator = cell2.iterator();
                     while(cell1Iterator.hasNext()){
@@ -48,11 +49,14 @@ public class Parser {
                             if(resultCell != null){
                                 result.add(resultCell);
                             }
-
                         }
                     }
-                    this.chart.get(span-1).set(start, result);
+
                 }
+                if(result.isEmpty()){
+                    result.add(null);
+                }
+                this.chart.get(span-1).set(start, result);
             }
         }
         return this.chart;
@@ -70,7 +74,7 @@ public class Parser {
             }
             // (X/Y) + (Y/Z) = (X/Z)
             else if(cat2.isSlash()){
-                SlashCategory cat2Slash = cat1.asSlash();
+                SlashCategory cat2Slash = cat2.asSlash();
                 if(cat1Slash.isRightSlash() && (cat1Slash.getArgument() == cat2Slash.getResult())){
                     return new RightSlash(cat1Slash.getResult(), cat2Slash.getArgument());
                 }

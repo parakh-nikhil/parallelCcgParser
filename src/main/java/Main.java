@@ -24,8 +24,10 @@ public class Main {
 
         ArrayList<ArrayList<Set<Category>>> chart = parser.getChart();
         for (ArrayList<Set<Category>> row : chart){
+            int span = chart.indexOf(row)+1;
+            System.out.print("Span: " + span + "  |  ");
             for(Set<Category> cell : row){
-                System.out.print(cell + "\t");
+                System.out.print(String.format("%-20s", cell));
             }
             System.out.println();
         }
