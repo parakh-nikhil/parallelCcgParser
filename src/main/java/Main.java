@@ -15,14 +15,19 @@ public class Main {
         String sentence2 = "I booked a flight to KTM";
 
         Parser parser = new Parser(lexicon);
-        parser.parse(sentence2);
+        try{
+            parser.parse(sentence2);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
 
         ArrayList<ArrayList<Set<Category>>> chart = parser.getChart();
-//        for (ArrayList<Set<Category>> row : chart){
-//            for(Set<Category> cell : row){
-//                System.out.print(cell + "\t");
-//            }
-//            System.out.println();
-//        }
+        for (ArrayList<Set<Category>> row : chart){
+            for(Set<Category> cell : row){
+                System.out.print(cell + "\t");
+            }
+            System.out.println();
+        }
     }
 }

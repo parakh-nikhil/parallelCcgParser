@@ -1,24 +1,23 @@
 package Categories;
 
 public abstract class SlashCategory extends Category{
-    Category target = null;
+    Category result = null;
     Category argument = null;
 
-    public SlashCategory(Category target, Category argument) {
+    public SlashCategory(Category result, Category argument) {
         super();
-        this.target = target;
+        this.result = result;
         this.argument = argument;
     }
 
-    public abstract Boolean getIsRightSlash();
+    public abstract Boolean isRightSlash();
 
-    public abstract Category getResult();
     public Category getArgument(){
         return this.argument;
     }
 
-    public Category getTarget(){
-        return this.target;
+    public Category getResult(){
+        return this.result;
     }
     @Override
     final public Boolean isSlash(){

@@ -1,0 +1,6 @@
+parser related issues
+    1) Retrieve words like "New York" from the lexicon
+
+good software design issues
+    1) Catch Exceptions properly. Currently only implementing what intelliJ suggested.
+        Use try/catch instead
