@@ -6,13 +6,16 @@ public class RightSlash extends SlashCategory {
     }
 
     @Override
-    final public Boolean getIsRightSlash(){
+    final public Boolean isRightSlash(){
         return true;
     }
 
     @Override
-    public Category getResult() {
-        //TODO
-        return null;
+    public String getSlashSign() {
+        return "/";
     }
+
+
+
+
 }

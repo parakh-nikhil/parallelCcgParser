@@ -6,13 +6,14 @@ public class LeftSlash extends SlashCategory {
     }
 
     @Override
-    final public Boolean getIsRightSlash(){
+    final public Boolean isRightSlash(){
         return false;
     }
 
     @Override
-    public Category getResult() {
-        return null;
+    public String getSlashSign() {
+        return "\\";
     }
+
 
 }
