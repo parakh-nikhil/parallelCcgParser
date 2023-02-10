@@ -18,8 +18,11 @@ public class Main {
         parser.parse(sentence2);
 
         ArrayList<ArrayList<Set<Category>>> chart = parser.getChart();
-        for (ArrayList<Set<Category>> row : chart){
-            System.out.println(row);
-        }
+//        for (ArrayList<Set<Category>> row : chart){
+//            for(Set<Category> cell : row){
+//                System.out.print(cell + "\t");
+//            }
+//            System.out.println();
+//        }
     }
 }
