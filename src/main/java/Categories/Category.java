@@ -9,6 +9,9 @@ public abstract class Category {
 
     public abstract SlashCategory asSlash() throws Exception;
 
+    @Override
+    public abstract String toString();
+
 }
 
 
