@@ -1,33 +1,54 @@
 import Categories.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello CCG Parser");
+        System.out.println("--- CCG Parser ---\n");
 
         //TODO: should keys be case-sensitive or not
         Lexicon lexicon = new Lexicon();
         lexicon.initializeEntries();
 
-        String sentence = "Tom likes apples";
-        String sentence2 = "I booked a flight to KTM";
+        List<String> sentences = new ArrayList<>(Arrays.asList("Tom likes apples", "I booked a flight to KTM"));
 
+        ArrayList<ArrayList<Set<Category>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
-        try{
-            parser.parse(sentence2);
-        }catch (Exception e){
-            System.out.println(e);
+        for(String sentence : sentences){
+            sentence = sentence.strip();
+            System.out.println("Sentence: " + sentence);
+            System.out.println("Parsing...");
+            try{
+                parsedChart = parser.parse(sentence);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+            if(parsedChart == null){
+                System.out.println("\tGiven sentence is not grammatically correct!");
+            }
+            else{
+                System.out.println("\tSentence successfully parsed.");
+                printChart(parsedChart);
+                parsedChart.clear();
+            }
+            parser.clearChart();
+            System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------");
+
+
         }
 
 
-        ArrayList<ArrayList<Set<Category>>> chart = parser.getChart();
+
+
+    }
+
+    public static void printChart(ArrayList<ArrayList<Set<Category>>> chart){
         for (ArrayList<Set<Category>> row : chart){
-            int span = chart.indexOf(row)+1;
-            System.out.print("Span: " + span + "  |  ");
             for(Set<Category> cell : row){
-                System.out.print(String.format("%-20s", cell));
+                System.out.print(String.format("%-30s", cell));
             }
             System.out.println();
         }

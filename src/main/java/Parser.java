@@ -21,6 +21,8 @@ public class Parser {
     }
 
     public ArrayList<ArrayList<Set<Category>>> parse(String sentence) throws Exception {
+        //TODO: for multiple sentences this.chart builds upon the previous chart. Considering making a chart class.
+
         //TODO: Currently does not work with words like New York (or any entry that has space between it)
         String[] sentenceArray = sentence.split(" ");
         this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
@@ -35,10 +37,10 @@ public class Parser {
                 Set<Category> result = new HashSet<>();
                 for(int spanBreak = start+1 ; spanBreak < start+span ; spanBreak++){
                     //TODO: consider if [start - spanBreak] and [spanBreak+1 - span) combines
-                    Set<Category> cell1 = this.chart.get(spanBreak-start-1).get(start); //WORKS
-                    Set<Category> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak); //WORKS
-                    //if yes for any, update the chart[span-1][start] cell
+                    Set<Category> cell1 = this.chart.get(spanBreak-start-1).get(start);
+                    Set<Category> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
 
+                    //if yes for any, update the chart[span-1][start] cell
                     Iterator<Category> cell1Iterator = cell1.iterator();
                     Iterator<Category> cell2Iterator = cell2.iterator();
                     while(cell1Iterator.hasNext()){
@@ -58,6 +60,10 @@ public class Parser {
                 }
                 this.chart.get(span-1).set(start, result);
             }
+        }
+        Set<Category> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
+        if (root.contains(null)){
+            return null;
         }
         return this.chart;
     }
@@ -82,7 +88,7 @@ public class Parser {
         }
         if (cat2.isSlash()){
             SlashCategory cat2Slash = cat2.asSlash();
-            // Y + (X\Y) = X
+            // Y + (X\Y) = X ; backward application
             if(!cat2Slash.isRightSlash() && (cat1 == cat2Slash.getArgument())){
                 return cat2Slash.getResult();
             }
@@ -111,17 +117,16 @@ public class Parser {
         for(int i = 1; i < this.sentenceCategories.size() ; i++){
             ArrayList<Set<Category>> chartRow = new ArrayList<>();
             for (int j = 0 ; j < this.sentenceCategories.size()-i ; j++){
-//                Set<Category> test = new HashSet<>();
-//                test.add(new TestCategory("Row: " + i));
-//                test.add(new TestCategory("Col: " + j));
-//                chartRow.add(test);
-                chartRow.add(new HashSet<Category>());
+                chartRow.add(new HashSet<>());
             }
             this.chart.add(chartRow);
         }
 
     }
 
+    public void clearChart(){
+        this.chart = new ArrayList<>();
+    }
     public ArrayList<ArrayList<Set<Category>>> getChart(){
         return this.chart;
     }
