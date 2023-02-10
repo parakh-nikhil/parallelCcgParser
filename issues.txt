@@ -9,3 +9,6 @@ Good software design issues
         Use try/catch instead.
     2) Update Readme.md
     3) Make this issues page as a markdown. OR track on GitHub issue tracker.
+
+To-Do
+    1) Check with entries with multiple categories
