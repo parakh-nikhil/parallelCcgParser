@@ -20,11 +20,11 @@ public class Lexicon extends HashMap<String, Set<Category>> {
     public void initializeEntries(){
         NP np = NP.getInstance();
         TV tv = new TV();
-        Det det = new Det();
+        Det det = Det.getInstance();
         PP pp_to = new PP("to");
         PP pp_than = new PP("than");
-        S s = new S();
-        ADJ adj = new ADJ();
+        S s = S.getInstance();
+        ADJ adj = ADJ.getInstance();
 
 
         this.addEntry("Tom", np);
