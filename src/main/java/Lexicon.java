@@ -38,7 +38,7 @@ public class Lexicon extends HashMap<String, Set<Category>> {
         this.addEntry("flight", new LeftSlash(new RightSlash(np, pp_to), det));
         this.addEntry("KTM", np);
 
-        this.addEntry("than", pp_than);
+        this.addEntry("than", new RightSlash(pp_than, np));
         this.addEntry("1",np);
         this.addEntry("5",np);
         this.addEntry("is", new RightSlash(new LeftSlash(s,np),adj));
