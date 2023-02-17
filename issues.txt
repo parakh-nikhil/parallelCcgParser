@@ -1,14 +1,9 @@
 Parser related issues
     1) Should keys be case-sensitive or not
-    2) Retrieve words like "New York" from the lexicon.
-    3) [(S\NP)/NP, (S\NP)/NP], does not ignore duplicates when new Categories are created during parsing.
-    4) Currently does not work with words like New York (or any entry that has space between it)
 
 Good software design issues
     1) Catch Exceptions properly. Currently only implementing what intelliJ suggested.
         Use try/catch instead.
-    2) Update Readme.md
-    3) Make this issues page as a markdown. OR track on GitHub issue tracker.
 
 To-Do
     1) Check with entries with multiple categories
