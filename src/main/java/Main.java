@@ -1,7 +1,6 @@
 import Categories.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -12,9 +11,7 @@ public class Main {
         //TODO: should keys be case-sensitive or not
         Lexicon lexicon = new Lexicon();
         lexicon.initializeEntries();
-
-        List<String> sentences = new ArrayList<>(Arrays.asList("1 is less than 5","Tom likes apples", "I booked a flight to KTM", "I want apples", "I want to fly a kite in the sky"));
-
+        List<String> sentences = Sentences.getSentences();
         ArrayList<ArrayList<Set<Category>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
         for(String sentence : sentences){

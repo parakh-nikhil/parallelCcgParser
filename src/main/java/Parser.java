@@ -2,7 +2,6 @@ import Categories.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class Parser {
@@ -22,7 +21,6 @@ public class Parser {
 
     public ArrayList<ArrayList<Set<Category>>> parse(String sentence) throws Exception {
         //TODO: for multiple sentences this.chart builds upon the previous chart. Considering making a chart class.
-
         //TODO: Currently does not work with words like New York (or any entry that has space between it)
         String[] sentenceArray = sentence.split(" ");
         this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
@@ -59,10 +57,11 @@ public class Parser {
                 this.chart.get(span-1).set(start, result);
             }
         }
-        Set<Category> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
-        if (root.contains(null)){
-            return null;
-        }
+//        Set<Category> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
+//        if (root.contains(null)){
+//            return this.chart;
+////            return null;
+//        }
         return this.chart;
     }
 
@@ -74,13 +73,13 @@ public class Parser {
             SlashCategory cat1Slash = cat1.asSlash();
             // (X/Y) + (Y) = X ; forward application
             if(cat1Slash.isRightSlash() && (cat1Slash.getArgument() == cat2)){
-                return cat1Slash.getResult();
+                return this.lexicon.buildCategory(cat1Slash.getResult());
             }
             // (X/Y) + (Y/Z) = (X/Z)
             else if(cat2.isSlash()){
                 SlashCategory cat2Slash = cat2.asSlash();
                 if(cat1Slash.isRightSlash() && (cat1Slash.getArgument() == cat2Slash.getResult())){
-                    return new RightSlash(cat1Slash.getResult(), cat2Slash.getArgument());
+                    return this.lexicon.buildCategory(new RightSlash(cat1Slash.getResult(), cat2Slash.getArgument()));
                 }
             }
         }
@@ -88,14 +87,14 @@ public class Parser {
             SlashCategory cat2Slash = cat2.asSlash();
             // Y + (X\Y) = X ; backward application
             if(!cat2Slash.isRightSlash() && (cat1 == cat2Slash.getArgument())){
-                return cat2Slash.getResult();
+                return this.lexicon.buildCategory(cat2Slash.getResult());
             }
 
             // (X\Y) + (Y\Z) = (X\Z)
             else if(cat1.isSlash()){
                 SlashCategory cat1Slash = cat1.asSlash();
                 if(!cat1Slash.isRightSlash() && (cat1Slash.getArgument() == cat2Slash.getResult())){
-                    return new LeftSlash(cat1Slash.getResult(), cat2Slash.getArgument());
+                    return this.lexicon.buildCategory(new LeftSlash(cat1Slash.getResult(), cat2Slash.getArgument()));
                 }
             }
         }
