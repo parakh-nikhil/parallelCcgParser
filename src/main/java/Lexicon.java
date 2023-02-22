@@ -38,14 +38,25 @@ public class Lexicon extends HashMap<String, Set<Category>> {
         this.addEntry("booked", tv);
         this.addEntry("a", det);
         this.addEntry("to", this.buildCategory(new RightSlash(pp_to, np)));
-        this.addEntry("flight", this.buildCategory(new LeftSlash(new RightSlash(np, pp_to), det)));
+        this.addEntry("flight", this.buildCategory(new LeftSlash(this.buildCategory(new RightSlash(np, pp_to)), det)));
         this.addEntry("KTM", np);
 
         this.addEntry("than", this.buildCategory(new RightSlash(pp_than, np)));
         this.addEntry("1",np);
         this.addEntry("5",np);
-        this.addEntry("is", this.buildCategory(new RightSlash(new LeftSlash(s,np),adj)));
+        this.addEntry("is", this.buildCategory(new RightSlash(this.buildCategory(new LeftSlash(s,np)),adj)));
         this.addEntry("less", this.buildCategory(new RightSlash(adj,pp_than)));
+
+        this.addEntry("10", np);
+        this.addEntry("equal", this.buildCategory(new RightSlash(adj,pp_to)));
+        this.addEntry("greater", this.buildCategory(new RightSlash(adj,pp_than)));
+        this.addEntry("or", this.buildCategory(new LeftSlash(this.buildCategory(new RightSlash(adj,adj)), adj)));
+        this.addEntry("or", this.buildCategory(new RightSlash(this.buildCategory(new RightSlash(adj,np)),this.buildCategory(new RightSlash(adj,np)))));
+        this.addEntry("float", np);
+        this.addEntry("any", this.buildCategory(new RightSlash(this.buildCategory(new RightSlash(this.buildCategory(new RightSlash(s,this.buildCategory(new LeftSlash(s,np)))),adj)),np)));
+//        this.addEntry("that", this.buildCategory(new LeftSlash(new RightSlash(np, new LeftSlash(s,np)),np)));
+        this.addEntry("that", this.buildCategory(new RightSlash(this.buildCategory(new LeftSlash(np,np)),this.buildCategory(new RightSlash(s,np)))));
+        this.addEntry("passing",adj);
     }
 
     public Category buildCategory(Category category){

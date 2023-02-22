@@ -57,10 +57,11 @@ public class Parser {
                 this.chart.get(span-1).set(start, result);
             }
         }
-        Set<Category> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
-        if (root.contains(null)){
-            return null;
-        }
+//        Set<Category> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
+//        if (root.contains(null)){
+//            return this.chart;
+////            return null;
+//        }
         return this.chart;
     }
 

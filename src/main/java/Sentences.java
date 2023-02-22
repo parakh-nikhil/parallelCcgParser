@@ -8,6 +8,7 @@ public final class Sentences {
         sentences.add("I booked a flight to KTM");
         sentences.add("I want apples");
         sentences.add("I want to fly a kite in the sky");
+        sentences.add("any float that is passing is greater than or equal to 5 or less than or equal to 10");
         return sentences;
     }
 }
