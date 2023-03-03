@@ -44,7 +44,7 @@ public class Parser {
                     //if yes for any, update the chart[span-1][start] cell
                     for(Category c1 : cell1){
                         for(Category c2 : cell2){
-                            Category resultCell = this.combine(c1,c2);
+                            Category resultCell = Rules.combine(c1,c2, this.lexicon);
                             if(resultCell != null){
                                 result.add(resultCell);
                             }
@@ -57,49 +57,15 @@ public class Parser {
                 this.chart.get(span-1).set(start, result);
             }
         }
-//        Set<Category> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
-//        if (root.contains(null)){
+        Set<Category> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
+        if (root.contains(null)){
 //            return this.chart;
-////            return null;
-//        }
+            return null;
+        }
         return this.chart;
     }
 
-    private Category combine(Category cat1, Category cat2) throws Exception {
-        if(cat1 == null || cat2 == null){
-            return null;
-        }
-        if(cat1.isSlash()){
-            SlashCategory cat1Slash = cat1.asSlash();
-            // (X/Y) + (Y) = X ; forward application
-            if(cat1Slash.isRightSlash() && (cat1Slash.getArgument() == cat2)){
-                return this.lexicon.buildCategory(cat1Slash.getResult());
-            }
-            // (X/Y) + (Y/Z) = (X/Z)
-            else if(cat2.isSlash()){
-                SlashCategory cat2Slash = cat2.asSlash();
-                if(cat1Slash.isRightSlash() && (cat1Slash.getArgument() == cat2Slash.getResult())){
-                    return this.lexicon.buildCategory(new RightSlash(cat1Slash.getResult(), cat2Slash.getArgument()));
-                }
-            }
-        }
-        if (cat2.isSlash()){
-            SlashCategory cat2Slash = cat2.asSlash();
-            // Y + (X\Y) = X ; backward application
-            if(!cat2Slash.isRightSlash() && (cat1 == cat2Slash.getArgument())){
-                return this.lexicon.buildCategory(cat2Slash.getResult());
-            }
 
-            // (X\Y) + (Y\Z) = (X\Z)
-            else if(cat1.isSlash()){
-                SlashCategory cat1Slash = cat1.asSlash();
-                if(!cat1Slash.isRightSlash() && (cat1Slash.getArgument() == cat2Slash.getResult())){
-                    return this.lexicon.buildCategory(new LeftSlash(cat1Slash.getResult(), cat2Slash.getArgument()));
-                }
-            }
-        }
-       return null;
-    }
     private ArrayList<Set<Category>> getCategoriesFromLexicon(String[] sentenceArray){
         ArrayList<Set<Category>> categories = new ArrayList<>();
         Set<String> notFound = new HashSet<>();
