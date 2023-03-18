@@ -1,4 +1,5 @@
 import Categories.*;
+import Language.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,7 +45,7 @@ public class Parser {
                     //if yes for any, update the chart[span-1][start] cell
                     for(Category c1 : cell1){
                         for(Category c2 : cell2){
-                            Category resultCell = Rules.combine(c1,c2, this.lexicon);
+                            Category resultCell = Grammar.combine(c1,c2, this.lexicon);
                             if(resultCell != null){
                                 result.add(resultCell);
                             }
