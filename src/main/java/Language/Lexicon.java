@@ -42,7 +42,6 @@ public class Lexicon extends HashMap<String, Set<Category>> {
         for(LexiconPopulator populator : populators){
             populator.populate_all();
         }
-
     }
 
     public Category buildCategory(Category category){
