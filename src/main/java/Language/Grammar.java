@@ -1,10 +1,12 @@
+package Language;
+
 import Categories.Category;
 import Categories.LeftSlash;
 import Categories.RightSlash;
 import Categories.SlashCategory;
 
-public class Rules {
-    public Rules(){}
+public class Grammar {
+    public Grammar(){}
 
     public static Category combine(Category cat1, Category cat2, Lexicon lexicon) throws Exception {
         if(cat1 == null || cat2 == null){
