@@ -21,10 +21,13 @@ public class Lexicon extends HashMap<String, Set<Category>> {
         this.put(str, newSet);
     }
 
+    public void add(String key, Category val){
+        this.addEntry(key, val);
+    }
     public void initializeEntries(){
         List<LexiconPopulator> populators = new ArrayList<>();
-        File ccgPopulator1 = new File("/src/main/java/LexiconPopulator/Populator1.java");
-        File ccgPopulator2 = new File("/src/main/java/LexiconPopulator/Populator2.java");
+        File ccgPopulator1 = new File("src/main/java/LexiconPopulator/Populator1.java");
+        File ccgPopulator2 = new File("src/main/java/LexiconPopulator/Populator1.java");
 
         if (ccgPopulator1.exists()){
             LexiconPopulator populator1 = new Populator1(this);

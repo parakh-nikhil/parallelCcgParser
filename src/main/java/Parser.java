@@ -25,7 +25,7 @@ public class Parser {
         //TODO: Currently does not work with words like New York (or any entry that has space between it)
         String[] sentenceArray = sentence.split(" ");
         this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
-        if(sentenceCategories == null){
+        if(this.sentenceCategories == null){
             return null;
         }
         this.buildChartCells();
