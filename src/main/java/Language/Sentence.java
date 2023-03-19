@@ -1,16 +1,38 @@
 package Language;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class Sentence {
-    public static ArrayList<String> getSentences(){
-        ArrayList<String> sentences = new ArrayList<>();
-        sentences.add("1 is less than 5");
-        sentences.add("Tom likes apples");
-        sentences.add("I booked a flight to KTM");
-        sentences.add("I want apples");
-        sentences.add("I want to fly a kite in the sky");
-        sentences.add("any float that is passing is greater than or equal to 5 or less than or equal to 10");
+    public static List<String> getSimpleSentences(){
+        List<String> sentences = new ArrayList<>();
+//        sentences.add("1 is less than 5");
+        sentences.add("I like eating apples");
+//        sentences.add("It is a beautiful day");
+//        sentences.add("I booked a flight to PHILADELPHIA");
+//        sentences.add("I want five apples");
+//        sentences.add("I want to fly a kite in the sky");
+//        sentences.add("I want to fly a car in the sky");
+        //TODO: next sentence still does not parse correctly
+//        sentences.add("any float that is passing is greater than or equal to one or less than or equal to five");
+        return sentences;
+    }
+
+    public static List<String> getComplexSentences(){
+        List<String> sentences = new ArrayList<>();
+//        sentences.add("The quick brown fox jumped over the lazy dog , who was lying in the shade of a tall oak tree , enjoying the cool breeze and the sound of the nearby river , while the fox , having successfully made the leap , ran off into the distance , his bushy tail waving in the wind .");
+//        sentences.add("In the distant future , long after humanity has colonized other planets and encountered alien civilizations , a team of explorers sets out on a perilous mission to chart the unexplored regions of the galaxy , facing many challenges and dangers along the way , including hostile creatures , treacherous terrain , and unknown technologies , all in the pursuit of knowledge and discovery .");
+//        sentences.add("As the sun slowly rose over the misty mountains , casting a golden glow over the lush valleys below , the hiker continued his ascent , navigating the rocky terrain and steep slopes with skill and determination , until he reached the summit , where he was rewarded with a breathtaking view of the surrounding landscape , stretching as far as the eye could see .");
+//        sentences.add("As the sun slowly rose over the mountains , casting a golden glow over the lush towns below , the hiker continued his ascent , going through the rocky terrain and steep slopes with skill and determination , until he reached the summit , where he was rewarded with a breathtaking view of the surrounding landscape , stretching as far as the eye could see .");
+        sentences.add("In the aftermath of the devastating earthquake , which shook the entire region to its core , the rescue teams worked tirelessly to search for survivors buried under the rubble , using sophisticated equipment and advanced techniques to locate and extract the victims , many of whom were surprisingly rescued after days of being trapped in the debris .");
+        return sentences;
+    }
+
+    public static List<String> getComplexSentenceUsingBasicCombinatoryRules(){
+        List<String> sentences = new ArrayList<>();
+//        sentences.add("The young girl with the curly hair , who was reading a book about ancient civilizations , suddenly noticed a bright light shining in the sky above her , which turned out to be a spaceship from a distant planet , piloted by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
+        sentences.add("The young girl with the curly hair , who was reading a book about ancient times , suddenly noticed a bright light shining in the sky above her , which turned out to be a car from a distant planet , driven by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
         return sentences;
     }
 }
+
