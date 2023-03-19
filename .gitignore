@@ -11,3 +11,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 .idea/
 *.DS_Store
+/src/main/java/LexiconPopulator/Populator1.java
+/src/main/java/LexiconPopulator/Populator2.java
+

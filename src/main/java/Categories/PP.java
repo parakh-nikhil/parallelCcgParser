@@ -2,16 +2,21 @@ package Categories;
 
 //Definition: Prepositional Phrase
 public class PP extends AtomicCategory{
-    String preposition;
 
-    public PP(String preposition){
+    private static PP instance;
+
+    private PP(){
         super();
-        this.preposition = preposition;
-
     }
 
+    public static PP getInstance(){
+        if (instance == null){
+            instance = new PP();
+        }
+        return instance;
+    }
     @Override
     public String toString(){
-        return(String.format("PP[%s]",this.preposition));
+        return "PP";
     }
 }

@@ -2,7 +2,7 @@
 A Natural Language Parser based on Combinatory Categorial Grammar (CCG) and built by modifying CYK chart parsing algorithm.
 
 ## Usage
-- The sentences can be found in Sentences class. In the getSentences() static method.
+- The sentences can be found in Language.Sentence class. In the getSentences() static method.
 - Add or remove sentences from there.
 - Run Main.java
 
