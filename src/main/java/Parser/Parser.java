@@ -75,7 +75,9 @@ public class Parser {
             String word = sentenceArray[i];
             if(lexicon.containsKey(word)){
                 Set<ParseTree> parseTreeSetFromLexicon = new HashSet<>();
+                System.out.println("\n" + word);
                 for (Category category : this.lexicon.get(word)){
+                    System.out.println("\t" + category);
                     parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word));
                 }
                 categories.add(parseTreeSetFromLexicon);

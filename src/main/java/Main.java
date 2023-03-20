@@ -15,6 +15,7 @@ public class Main {
         Lexicon lexicon = new Lexicon();
         lexicon.initializeEntries();
         List<String> sentences = Sentence.getSimpleSentences();
+//        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
         ArrayList<ArrayList<Set<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
         for(String sentence : sentences){
@@ -26,7 +27,7 @@ public class Main {
             }catch (Exception e){
                 System.out.println(e);
             }
-            if(parsedChart == null){
+            if(parsedChart == null || parsedChart.size()==0){
                 System.out.println("\tGiven sentence is not grammatically correct!");
             }
             else{

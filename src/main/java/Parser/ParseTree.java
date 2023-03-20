@@ -8,24 +8,16 @@ public class ParseTree {
 
         String sentenceFragment = "";
 
-//    public ParseTree getLeftChild() {
-//        return leftChild;
-//    }
-//
-//    public ParseTree getRightChild() {
-//        return rightChild;
-//    }
-
     public String getSentenceFragment() {
         return sentenceFragment;
     }
 
-        public ParseTree(Category category, ParseTree leftChild, ParseTree rightChild, String sentenceFragment) {
-            this.category = category;
-            this.leftChild = leftChild;
-            this.rightChild = rightChild;
-            this.sentenceFragment = sentenceFragment;
-        }
+    public ParseTree(Category category, ParseTree leftChild, ParseTree rightChild, String sentenceFragment) {
+        this.category = category;
+        this.leftChild = leftChild;
+        this.rightChild = rightChild;
+        this.sentenceFragment = sentenceFragment;
+    }
 
     public ParseTree(Category category, ParseTree leftChild, ParseTree rightChild) {
         this.category = category;
@@ -35,16 +27,16 @@ public class ParseTree {
         this.sentenceFragment = leftChild.getSentenceFragment() + " " + rightChild.getSentenceFragment();
     }
 
-        public Category getCategory() {
-            return this.category;
-        }
+    public Category getCategory() {
+        return this.category;
+    }
 
-        public Pair<ParseTree,ParseTree> children() {
-            return new Pair<>(leftChild, rightChild);
-        }
+    public Pair<ParseTree,ParseTree> children() {
+        return new Pair<>(leftChild, rightChild);
+    }
 //        public Pair<String,String> childFragments() { }
 
-        public String toString(){
+    public String toString(){
             return this.getCategory().toString();
         }
 

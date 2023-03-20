@@ -11,6 +11,9 @@ public class Grammar {
     public Grammar(){}
 
     public static ParseTree combine(ParseTree tree1, ParseTree tree2, Lexicon lexicon) throws Exception {
+        if(tree2 == null){
+            System.out.println("here");
+        }
         Category cat1 = tree1.getCategory();
         Category cat2 = tree2.getCategory();
         if(cat1 == null || cat2 == null){
