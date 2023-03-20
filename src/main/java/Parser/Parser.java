@@ -1,3 +1,5 @@
+package Parser;
+
 import Categories.*;
 import Language.*;
 
@@ -7,10 +9,10 @@ import java.util.Set;
 
 public class Parser {
     private Lexicon lexicon;
-    private ArrayList<ArrayList<Set<Category>>> chart;
-    private ArrayList<Set<Category>> sentenceCategories = new ArrayList<>();
+    private ArrayList<ArrayList<Set<ParseTree>>> chart;
+    private ArrayList<Set<ParseTree>> sentenceCategories = new ArrayList<>();
 
-    public Parser(Lexicon lexicon, ArrayList<ArrayList<Set<Category>>> chart) {
+    public Parser(Lexicon lexicon, ArrayList<ArrayList<Set<ParseTree>>> chart) {
         this.lexicon = lexicon;
         this.chart = chart;
     }
@@ -20,32 +22,31 @@ public class Parser {
         this.chart = new ArrayList<>();
     }
 
-    public ArrayList<ArrayList<Set<Category>>> parse(String sentence) throws Exception {
-        //TODO: for multiple sentences this.chart builds upon the previous chart. Considering making a chart class.
-        //TODO: Currently does not work with words like New York (or any entry that has space between it)
+    public ArrayList<ArrayList<Set<ParseTree>>> parse(String sentence) throws Exception {
+
         String[] sentenceArray = sentence.split(" ");
         this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
         if(this.sentenceCategories == null){
             return null;
         }
-        this.buildChartCells();
         //start building chart
+        this.buildChartCells();
 
         // for each span
         for (int span = 2 ; span<this.sentenceCategories.size() + 1 ; span ++){
             //for each start
             for(int start = 0 ; start <= this.sentenceCategories.size() - span ; start++){
                 // for each break
-                Set<Category> result = new HashSet<>();
+                Set<ParseTree> result = new HashSet<>();
                 for(int spanBreak = start+1 ; spanBreak < start+span ; spanBreak++){
                     //TODO: consider if [start - spanBreak] and [spanBreak+1 - span) combines
-                    Set<Category> cell1 = this.chart.get(spanBreak-start-1).get(start);
-                    Set<Category> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
+                    Set<ParseTree> cell1 = this.chart.get(spanBreak-start-1).get(start);
+                    Set<ParseTree> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
 
                     //if yes for any, update the chart[span-1][start] cell
-                    for(Category c1 : cell1){
-                        for(Category c2 : cell2){
-                            Category resultCell = Grammar.combine(c1,c2, this.lexicon);
+                    for(ParseTree c1 : cell1){
+                        for(ParseTree c2 : cell2){
+                            ParseTree resultCell = Grammar.combine(c1,c2, this.lexicon);
                             if(resultCell != null){
                                 result.add(resultCell);
                             }
@@ -58,7 +59,7 @@ public class Parser {
                 this.chart.get(span-1).set(start, result);
             }
         }
-        Set<Category> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
+        Set<ParseTree> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
         if (root.contains(null)){
 //            return this.chart;
             return null;
@@ -67,17 +68,20 @@ public class Parser {
     }
 
 
-    private ArrayList<Set<Category>> getCategoriesFromLexicon(String[] sentenceArray){
-        ArrayList<Set<Category>> categories = new ArrayList<>();
+    private ArrayList<Set<ParseTree>> getCategoriesFromLexicon(String[] sentenceArray){
+        ArrayList<Set<ParseTree>> categories = new ArrayList<>();
         Set<String> notFound = new HashSet<>();
         for(int i = 0 ; i < sentenceArray.length ; i++){
             String word = sentenceArray[i];
             if(lexicon.containsKey(word)){
-                categories.add(this.lexicon.get(word));
+                Set<ParseTree> parseTreeSetFromLexicon = new HashSet<>();
+                for (Category category : this.lexicon.get(word)){
+                    parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word));
+                }
+                categories.add(parseTreeSetFromLexicon);
             }
             else{
                 notFound.add(word);
-
             }
 
         }
@@ -91,7 +95,7 @@ public class Parser {
     private void buildChartCells(){
         this.chart.add(this.sentenceCategories);
         for(int i = 1; i < this.sentenceCategories.size() ; i++){
-            ArrayList<Set<Category>> chartRow = new ArrayList<>();
+            ArrayList<Set<ParseTree>> chartRow = new ArrayList<>();
             for (int j = 0 ; j < this.sentenceCategories.size()-i ; j++){
                 chartRow.add(new HashSet<>());
             }
@@ -103,7 +107,7 @@ public class Parser {
     public void clearChart(){
         this.chart = new ArrayList<>();
     }
-    public ArrayList<ArrayList<Set<Category>>> getChart(){
+    public ArrayList<ArrayList<Set<ParseTree>>> getChart(){
         return this.chart;
     }
 }
