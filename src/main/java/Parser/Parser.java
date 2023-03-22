@@ -49,6 +49,11 @@ public class Parser {
                             ParseTree resultCell = Grammar.combine(c1,c2, this.lexicon);
                             if(resultCell != null){
                                 result.add(resultCell);
+                                // Type raising N to NP
+                                if(resultCell.getCategory() == N.getInstance()){
+                                    Pair<ParseTree, ParseTree> resultChildren = resultCell.children();
+                                    result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment()));
+                                }
                             }
                         }
                     }
