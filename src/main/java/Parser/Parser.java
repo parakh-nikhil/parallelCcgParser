@@ -3,9 +3,7 @@ package Parser;
 import Categories.*;
 import Language.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Parser {
     private Lexicon lexicon;
@@ -32,6 +30,7 @@ public class Parser {
         //start building chart
         this.buildChartCells();
 
+        int nullCount = 0;
         // for each span
         for (int span = 2 ; span<this.sentenceCategories.size() + 1 ; span ++){
             //for each start
@@ -42,31 +41,36 @@ public class Parser {
                     //TODO: consider if [start - spanBreak] and [spanBreak+1 - span) combines
                     Set<ParseTree> cell1 = this.chart.get(spanBreak-start-1).get(start);
                     Set<ParseTree> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
-
                     //if yes for any, update the chart[span-1][start] cell
-                    for(ParseTree c1 : cell1){
-                        for(ParseTree c2 : cell2){
-                            ParseTree resultCell = Grammar.combine(c1,c2, this.lexicon);
-                            if(resultCell != null){
-                                result.add(resultCell);
-                                // Type raising N to NP
-                                if(resultCell.getCategory() == N.getInstance()){
-                                    Pair<ParseTree, ParseTree> resultChildren = resultCell.children();
-                                    result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment()));
+                    if(cell1 != null && cell2 != null){
+                        for(ParseTree c1 : cell1){
+                            for(ParseTree c2 : cell2){
+                                ParseTree resultCell = Grammar.combine(c1,c2, this.lexicon);
+                                if(resultCell != null){
+                                    result.add(resultCell);
+                                    // Type raising N to NP
+                                    if(resultCell.getCategory() == N.getInstance()){
+                                        Pair<ParseTree, ParseTree> resultChildren = resultCell.children();
+                                        result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment()));
+                                    }
                                 }
                             }
                         }
+                    }else{
+//                        System.out.println(String.format("%s:\t%s",++nullCount,(cell1 == null) ? "cell 1" : "cell 2"));
                     }
                 }
                 if(result.isEmpty()){
-                    result.add(null);
+                    this.chart.get(span-1).set(start, null);
                 }
-                this.chart.get(span-1).set(start, result);
+                else{
+                    this.chart.get(span-1).set(start, result);
+                }
+
             }
         }
         Set<ParseTree> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
         if (root.contains(null)){
-//            return this.chart;
             return null;
         }
         return this.chart;
@@ -80,9 +84,7 @@ public class Parser {
             String word = sentenceArray[i];
             if(lexicon.containsKey(word)){
                 Set<ParseTree> parseTreeSetFromLexicon = new HashSet<>();
-                System.out.println("\n" + word);
                 for (Category category : this.lexicon.get(word)){
-                    System.out.println("\t" + category);
                     parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word));
                 }
                 categories.add(parseTreeSetFromLexicon);
