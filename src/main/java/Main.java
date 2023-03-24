@@ -3,6 +3,7 @@ import Language.Lexicon;
 import Language.Sentence;
 import Parser.*;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -19,11 +20,14 @@ public class Main {
         ArrayList<ArrayList<Set<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
         for(String sentence : sentences){
+
             sentence = sentence.strip();
             System.out.println("Sentence: " + sentence);
             System.out.println("Parsing...");
             try{
+                long start = Instant.now().toEpochMilli();
                 parsedChart = parser.parse(sentence);
+                System.out.println("PARSE TIME: " + (Instant.now().toEpochMilli() - start) + "ms");
             }catch (Exception e){
                 System.out.println(e);
             }
@@ -32,13 +36,13 @@ public class Main {
             }
             else{
                 System.out.println("\tSentence successfully parsed.");
-                printChart(parsedChart);
-                Set<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
-                for(ParseTree root : rootTrees){
-                    printRootTreeStackTrace(root,1);
-                    System.out.println("\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n");
-                    break;
-                }
+//                printChart(parsedChart);
+//                Set<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
+//                for(ParseTree root : rootTrees){
+//                    printRootTreeStackTrace(root,1);
+//                    System.out.println("\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n");
+//                    break;
+//                }
             }
             parser.clearChart();
             System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------");

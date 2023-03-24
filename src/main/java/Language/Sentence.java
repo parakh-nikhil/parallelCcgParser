@@ -6,14 +6,15 @@ import java.util.List;
 public final class Sentence {
     public static List<String> getSimpleSentences(){
         List<String> sentences = new ArrayList<>();
-        sentences.add("one is less than five");
-        sentences.add("I like eating apples");
-        sentences.add("It is a beautiful day");
-        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA");
-        sentences.add("I want five apples");
+//        sentences.add("one is less than five");
+//        sentences.add("I like eating apples");
+//        sentences.add("It is a beautiful day");
+//        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA"); // 37ms
+//        sentences.add("I want five apples");
 //        sentences.add("I want to fly a kite in the sky");
-        sentences.add("I want to fly a car in the sky");
-        //TODO: next sentence still does not parse correctly
+//        sentences.add("I want to drive a big car in the road today");
+        //TODO: next sentences are too long to parse. Memory issue
+//        sentences.add("I want to drive a big yellow car in the narrow bumpy road today");
 //        sentences.add("any float that is passing is greater than or equal to one or less than or equal to five");
         return sentences;
     }
