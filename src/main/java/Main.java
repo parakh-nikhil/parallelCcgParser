@@ -19,6 +19,7 @@ public class Main {
 //        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
         ArrayList<ArrayList<Set<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
+        long totalParseTimeStart = Instant.now().toEpochMilli();
         for(String sentence : sentences){
 
             sentence = sentence.strip();
@@ -48,6 +49,8 @@ public class Main {
             System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------");
 
         }
+
+        System.out.println("TOTAL PARSE TIME: " + (Instant.now().toEpochMilli() - totalParseTimeStart) + "ms");
 
 
 

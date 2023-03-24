@@ -99,7 +99,7 @@ public class Parser {
     }
 
     public void clearChart(){
-        this.chart = new ArrayList<>();
+        this.chart.clear();
     }
     public ArrayList<ArrayList<Set<ParseTree>>> getChart(){
         return this.chart;
