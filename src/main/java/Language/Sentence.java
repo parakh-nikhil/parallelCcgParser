@@ -6,20 +6,19 @@ import java.util.List;
 public final class Sentence {
     public static List<String> getSimpleSentences(){
         List<String> sentences = new ArrayList<>();
-//        sentences.add("one is less than five"); // 32ms
-//        sentences.add("I like eating apples"); // 1ms
-//        sentences.add("It is a beautiful day"); // 5ms
-//        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA"); // 37ms
-//        sentences.add("I want five apples"); // 1ms
-//        sentences.add("I want to fly a kite in the sky");
-//        sentences.add("I want to drive a car on narrow road"); // 98ms
-//        sentences.add("A quick brown fox jumps over the lazy dog"); // 50ms
-//        sentences.add("I want to drive a big yellow car on bumpy road today"); // 1263ms
-//        sentences.add("I want to drive a big yellow car on road today"); // 445ms
-//        sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
+        sentences.add("one is less than five"); // 32ms
+        sentences.add("I like eating apples"); // 1ms
+        sentences.add("It is a beautiful day"); // 5ms
+        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA"); // 37ms
+        sentences.add("I want five apples"); // 1ms
+        sentences.add("I want to fly a kite in the sky");
+        sentences.add("I want to drive a car on narrow road"); // 98ms
+        sentences.add("A quick brown fox jumps over the lazy dog"); // 50ms
+        sentences.add("I want to drive a big yellow car on bumpy road today"); // 1263ms
+        sentences.add("I want to drive a big yellow car on road today"); // 445ms
         sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
         //TODO: next sentences are too long to parse. Memory issue
-//        sentences.add("I want to drive a big yellow car in the narrow bumpy road today");
+//        sentences.add("I want to drive a big yellow car on the narrow bumpy road");
 //        sentences.add("any float that is passing is greater than or equal to one or less than or equal to five");
         return sentences;
     }

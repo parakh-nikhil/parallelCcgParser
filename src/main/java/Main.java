@@ -28,7 +28,7 @@ public class Main {
             try{
                 long start = Instant.now().toEpochMilli();
                 parsedChart = parser.parse(sentence);
-                System.out.println("PARSE TIME: " + (Instant.now().toEpochMilli() - start) + "ms");
+                System.out.println("CONCURRENT PARSE TIME: " + (Instant.now().toEpochMilli() - start) + "ms");
             }catch (Exception e){
                 System.out.println(e);
             }
@@ -46,11 +46,11 @@ public class Main {
 //                }
             }
             parser.clearChart();
-            System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("\n-----------------------------------------------------------------");
 
         }
 
-        System.out.println("TOTAL PARSE TIME: " + (Instant.now().toEpochMilli() - totalParseTimeStart) + "ms");
+        System.out.println("TOTAL CONCURRENT PARSE TIME: " + (Instant.now().toEpochMilli() - totalParseTimeStart) + "ms");
 
 
 
