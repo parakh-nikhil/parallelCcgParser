@@ -38,12 +38,11 @@ public class Main {
             else{
                 System.out.println("\tSentence successfully parsed.");
 //                printChart(parsedChart);
-//                Set<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
-//                for(ParseTree root : rootTrees){
-//                    printRootTreeStackTrace(root,1);
-//                    System.out.println("\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n");
-//                    break;
-//                }
+                Set<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
+                for(ParseTree root : rootTrees){
+                    printRootTreeStackTrace(root,1);
+                    System.out.println("\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n");
+                }
             }
             parser.clearChart();
             System.out.println("\n-----------------------------------------------------------------");
