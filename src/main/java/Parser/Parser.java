@@ -70,7 +70,7 @@ public class Parser {
             if(lexicon.containsKey(word)){
                 Set<ParseTree> parseTreeSetFromLexicon = new HashSet<>();
                 for (Category category : this.lexicon.get(word)){
-                    parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word));
+                    parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word, null));
                 }
                 categories.add(parseTreeSetFromLexicon);
             }
