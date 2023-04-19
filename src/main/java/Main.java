@@ -19,14 +19,16 @@ public class Main {
 //        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
         ArrayList<ArrayList<Set<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
+        long totalParseTimeStart = Instant.now().toEpochMilli();
         for(String sentence : sentences){
+
             sentence = sentence.strip();
             System.out.println("Sentence: " + sentence);
             System.out.println("Parsing...");
             try{
                 long start = Instant.now().toEpochMilli();
                 parsedChart = parser.parse(sentence);
-                System.out.println("NON-CONCURRENT PARSE TIME: " + (Instant.now().toEpochMilli() - start) + "ms");
+                System.out.println("CONCURRENT PARSE TIME: " + (Instant.now().toEpochMilli() - start) + "ms");
             }catch (Exception e){
                 System.out.println(e);
             }
@@ -43,9 +45,11 @@ public class Main {
                 }
             }
             parser.clearChart();
-            System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("\n-----------------------------------------------------------------");
 
         }
+
+        System.out.println("TOTAL CONCURRENT PARSE TIME: " + (Instant.now().toEpochMilli() - totalParseTimeStart) + "ms");
 
 
 

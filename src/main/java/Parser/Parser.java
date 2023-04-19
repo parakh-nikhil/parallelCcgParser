@@ -37,36 +37,21 @@ public class Parser {
             for(int start = 0 ; start <= this.sentenceCategories.size() - span ; start++){
                 // for each break
                 Set<ParseTree> result = new HashSet<>();
+                Set<CombineThread> threads = new HashSet<>();
                 for(int spanBreak = start+1 ; spanBreak < start+span ; spanBreak++){
                     //TODO: consider if [start - spanBreak] and [spanBreak+1 - span) combines
                     Set<ParseTree> cell1 = this.chart.get(spanBreak-start-1).get(start);
                     Set<ParseTree> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
                     //if yes for any, update the chart[span-1][start] cell
-                    if(cell1 != null && cell2 != null){
-                        for(ParseTree c1 : cell1){
-                            for(ParseTree c2 : cell2){
-                                ParseTree resultCell = Grammar.combine(c1,c2, this.lexicon);
-                                if(resultCell != null){
-                                    result.add(resultCell);
-                                    // Type raising N to NP
-                                    if(resultCell.getCategory() == N.getInstance()){
-                                        Pair<ParseTree, ParseTree> resultChildren = resultCell.children();
-                                        result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment()));
-                                    }
-                                }
-                            }
-                        }
-                    }else{
-//                        System.out.println(String.format("%s:\t%s",++nullCount,(cell1 == null) ? "cell 1" : "cell 2"));
-                    }
+                    CombineThread t = new CombineThread(cell1,cell2,lexicon,result);
+                    threads.add(t);
+                    t.start();
                 }
-                if(result.isEmpty()){
-                    this.chart.get(span-1).set(start, null);
+                for(CombineThread t: threads){
+                    t.join();
                 }
-                else{
-                    this.chart.get(span-1).set(start, result);
-                }
-
+                this.chart.get(span-1).set(start, result);
+                threads.clear();
             }
         }
         Set<ParseTree> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
@@ -114,7 +99,7 @@ public class Parser {
     }
 
     public void clearChart(){
-        this.chart = new ArrayList<>();
+        this.chart.clear();
     }
     public ArrayList<ArrayList<Set<ParseTree>>> getChart(){
         return this.chart;
