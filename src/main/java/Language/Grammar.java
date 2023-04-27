@@ -39,7 +39,8 @@ public class Grammar {
             return null;
         }
 
-        // Forward Application
+        // Forward Application:
+        // TODO: function cant be forward func composition
         if(slashCat1!=null && slashCat2 == null){
             // (X/Y) + (Y) = X
             if(slashCat1.isRightSlash() && slashCat1.getArgument() == cat2){
@@ -56,6 +57,7 @@ public class Grammar {
             }
         }else if(!eisnerNFConstraint1Rules.contains(tree1Rule) && !eisnerNFConstraint1Rules.contains(tree2Rule)){
             // Forward Composition:
+            // TODO: left cant be same composition
             if(slashCat1.isRightSlash() && slashCat2.isRightSlash()){
                 // (X/Y) + (Y/Z) = (X/Z)
                 if(slashCat1.getArgument() == slashCat2.getResult()){
