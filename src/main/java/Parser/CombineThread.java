@@ -25,7 +25,7 @@ public class CombineThread extends Thread{
 
     @Override
     public void run() {
-        ReentrantLock lock = new ReentrantLock();
+//        ReentrantLock lock = new ReentrantLock();
         for(ParseTree c1 : this.cell1){
             for(ParseTree c2 : this.cell2){
                 ParseTree resultCell = null;
@@ -35,23 +35,30 @@ public class CombineThread extends Thread{
                     throw new RuntimeException(e);
                 }
                 if(resultCell != null){
-                    lock.lock();
-                    try{
+                    synchronized (result){
                         result.add(resultCell);
-                    }finally {
-                        lock.unlock();
                     }
+//                    lock.lock();
+//                    try{
+//                        result.add(resultCell);
+//                    }finally {
+//                        lock.unlock();
+//                    }
 
                     // Type raising N to NP
                     if(resultCell.getCategory() == N.getInstance()){
                         Pair<ParseTree, ParseTree> resultChildren = resultCell.children();
-                        lock.lock();
-                        try{
+                        synchronized (result){
                             result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment()));
+
                         }
-                        finally {
-                            lock.unlock();
-                        }
+//                        lock.lock();
+//                        try{
+//                            result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment()));
+//                        }
+//                        finally {
+//                            lock.unlock();
+//                        }
                     }
                 }
             }

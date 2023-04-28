@@ -15,8 +15,8 @@ public class Main {
         //TODO: should keys be case-sensitive or not
         Lexicon lexicon = new Lexicon();
         lexicon.initializeEntries();
-        List<String> sentences = Sentence.getSimpleSentences();
-//        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
+//        List<String> sentences = Sentence.getSimpleSentences();
+        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
         ArrayList<ArrayList<Set<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
         long totalParseTimeStart = Instant.now().toEpochMilli();

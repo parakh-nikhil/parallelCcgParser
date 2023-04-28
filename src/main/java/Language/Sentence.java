@@ -18,7 +18,7 @@ public final class Sentence {
         sentences.add("I want to drive a big yellow car on road today"); // 445ms
         sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
         //TODO: next sentences are too long to parse. Memory issue
-//        sentences.add("I want to drive a big yellow car on the narrow bumpy road");
+        sentences.add("I want to drive a big yellow car on the narrow bumpy road");
 //        sentences.add("any float that is passing is greater than or equal to one or less than or equal to five");
         return sentences;
     }
