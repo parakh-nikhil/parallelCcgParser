@@ -20,7 +20,6 @@ public class Grammar {
         }
         RULES tree1Rule = tree1.getCreatedByRule();
         RULES tree2Rule = tree2.getCreatedByRule();
-        Set<RULES> eisnerNFConstraint1Rules = new HashSet<>(Arrays.asList(RULES.FORWARD_COMPOSITION, RULES.BACKWARD_COMPOSITION, RULES.FORWARD_CROSSING_COMPOSITION, RULES.BACKWARD_CROSSING_COMPOSITION));
         Category cat1 = tree1.getCategory();
         Category cat2 = tree2.getCategory();
         if(cat1 == null || cat2 == null){
@@ -43,7 +42,7 @@ public class Grammar {
         // TODO: function cant be forward func composition
         if(slashCat1!=null && slashCat2 == null){
             // (X/Y) + (Y) = X
-            if(slashCat1.isRightSlash() && slashCat1.getArgument() == cat2){
+            if(tree1Rule != RULES.FORWARD_COMPOSITION && slashCat1.isRightSlash() && slashCat1.getArgument() == cat2){
                 Category result = lexicon.buildCategory(slashCat1.getResult());
                 return new ParseTree(result,tree1,tree2, RULES.FORWARD_APPLICATION);
             }
@@ -52,44 +51,41 @@ public class Grammar {
         // Backward Application
         else if(slashCat1==null && slashCat2 != null){
             // Y + (X\Y) = X
-            if(!slashCat2.isRightSlash() && slashCat2.getArgument() == cat1){
+            if(tree2Rule != RULES.BACKWARD_COMPOSITION && !slashCat2.isRightSlash() && slashCat2.getArgument() == cat1){
                 return new ParseTree(lexicon.buildCategory(slashCat2.getResult()),tree1,tree2, RULES.BACKWARD_APPLICATION);
             }
-        }else if(!eisnerNFConstraint1Rules.contains(tree1Rule) && !eisnerNFConstraint1Rules.contains(tree2Rule)){
-            // Forward Composition:
-            // TODO: left cant be same composition
-            if(slashCat1.isRightSlash() && slashCat2.isRightSlash()){
-                // (X/Y) + (Y/Z) = (X/Z)
-                if(slashCat1.getArgument() == slashCat2.getResult()){
-                    return new ParseTree(lexicon.buildCategory(new RightSlash(slashCat1.getResult(), slashCat2.getArgument())),tree1,tree2, RULES.FORWARD_COMPOSITION);
-                }
+        }
+        // Forward Composition:
+        else if(slashCat1.isRightSlash() && slashCat2.isRightSlash()){
+            // (X/Y) + (Y/Z) = (X/Z)
+            if(tree1Rule != RULES.FORWARD_COMPOSITION && slashCat1.getArgument() == slashCat2.getResult()){
+                return new ParseTree(lexicon.buildCategory(new RightSlash(slashCat1.getResult(), slashCat2.getArgument())),tree1,tree2, RULES.FORWARD_COMPOSITION);
+            }
+        }
+
+        // Backward Composition:
+        else if(!slashCat1.isRightSlash() && !slashCat2.isRightSlash()){
+            // (Y\Z) + (X\Y) = (X\Z)
+            if(tree2Rule != RULES.BACKWARD_COMPOSITION && slashCat1.getResult() == slashCat2.getArgument()){
+                return new ParseTree(lexicon.buildCategory(new RightSlash(slashCat2.getResult(), slashCat1.getArgument())),tree1,tree2, RULES.BACKWARD_COMPOSITION);
             }
 
-            // Backward Composition:
-            else if(!slashCat1.isRightSlash() && !slashCat2.isRightSlash()){
-                // (Y\Z) + (X\Y) = (X\Z)
-                if(slashCat1.getResult() == slashCat2.getArgument()){
-                    return new ParseTree(lexicon.buildCategory(new RightSlash(slashCat2.getResult(), slashCat1.getArgument())),tree1,tree2, RULES.BACKWARD_COMPOSITION);
-                }
-
-                // (X\Y) + (Y\Z) = (X\Z)
-                else if(slashCat1.getArgument() == slashCat2.getResult()){
-                    return new ParseTree(lexicon.buildCategory(new RightSlash(slashCat1.getResult(), slashCat2.getArgument())),tree1,tree2, RULES.BACKWARD_COMPOSITION);
-                }
+            // (X\Y) + (Y\Z) = (X\Z)
+            else if(tree2Rule != RULES.BACKWARD_COMPOSITION && slashCat1.getArgument() == slashCat2.getResult()){
+                return new ParseTree(lexicon.buildCategory(new RightSlash(slashCat1.getResult(), slashCat2.getArgument())),tree1,tree2, RULES.BACKWARD_COMPOSITION);
             }
+        }
 
-            // Crossing Compositions
-            else if(slashCat1.isRightSlash() && !slashCat2.isRightSlash()){
-                // Forward Crossing Composition: (X/Y) + (Y\Z) = (X\Z)
-                if(slashCat1.getArgument() == slashCat2.getResult()){
-                    return new ParseTree(lexicon.buildCategory(new LeftSlash(slashCat1.getResult(), slashCat2.getArgument())),tree1,tree2, RULES.FORWARD_CROSSING_COMPOSITION);
-                }
-                // Backward Crossing Composition: (Y/Z) + (X\Y) = (X/Z)
-                if(slashCat1.getResult() == slashCat2.getArgument()){
-                    return new ParseTree(lexicon.buildCategory(new RightSlash(slashCat2.getResult(), slashCat1.getArgument())),tree1,tree2, RULES.BACKWARD_CROSSING_COMPOSITION);
-                }
+        // Crossing Compositions
+        else if(slashCat1.isRightSlash() && !slashCat2.isRightSlash()){
+            // Forward Crossing Composition: (X/Y) + (Y\Z) = (X\Z)
+            if(tree1Rule != RULES.FORWARD_CROSSING_COMPOSITION && slashCat1.getArgument() == slashCat2.getResult()){
+                return new ParseTree(lexicon.buildCategory(new LeftSlash(slashCat1.getResult(), slashCat2.getArgument())),tree1,tree2, RULES.FORWARD_CROSSING_COMPOSITION);
             }
-
+            // Backward Crossing Composition: (Y/Z) + (X\Y) = (X/Z)
+            if(tree2Rule != RULES.BACKWARD_CROSSING_COMPOSITION && slashCat1.getResult() == slashCat2.getArgument()){
+                return new ParseTree(lexicon.buildCategory(new RightSlash(slashCat2.getResult(), slashCat1.getArgument())),tree1,tree2, RULES.BACKWARD_CROSSING_COMPOSITION);
+            }
         }
         return null;
     }
