@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Sentence {
+    // Use a wrong sentence which don't parse at all
     public static List<String> getSimpleSentences(){
         List<String> sentences = new ArrayList<>();
 //        sentences.add("one is less than five"); // 32ms
@@ -18,10 +19,10 @@ public final class Sentence {
 //        sentences.add("I want to drive a big yellow car on road today"); // 445ms
 //        sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
         //TODO: next sentences are too long to parse. Memory issue
-//        sentences.add("I want to drive a big yellow car on the narrow bumpy road"); //2229ms (E-NF-1)
-//        sentences.add("I want to drive a big yellow car on the narrow bumpy road today"); //9349ms (E-NF-1)
+//        sentences.add("I want to drive a big yellow car on the narrow bumpy road"); //908ms (E-NF-1)
+//        sentences.add("I want to drive a big yellow car on the narrow bumpy road today"); //2179ms (E-NF-1)
 //        sentences.add("I want to drive a big yellow car on the narrow bumpy road to home today"); //ms (E-NF-1)
-        sentences.add("any float that is passing is greater than or equal to one or less than or equal to five");
+//        sentences.add("any float that is passing is greater than or equal to one or less than or equal to five");
         return sentences;
     }
 
@@ -40,6 +41,12 @@ public final class Sentence {
 //        sentences.add("The young girl with the curly hair , who was reading a book about ancient civilizations , suddenly noticed a bright light shining in the sky above her , which turned out to be a spaceship from a distant planet , piloted by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
         sentences.add("The young girl with the curly hair , who was reading a book about ancient times , suddenly noticed a bright light shining in the sky above her , which turned out to be a car from a distant planet , driven by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
         return sentences;
+    }
+
+    public static List<String> getIncorrectSentences(){
+        List<String> incorrectSentences = new ArrayList<>();
+        incorrectSentences.add("apple car my friend is there boat money , , ");
+        return incorrectSentences;
     }
 }
 
