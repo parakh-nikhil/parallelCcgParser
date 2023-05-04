@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+// TODO use a profiler (to check which part is taking too long)
 public class Main {
     public static void main(String[] args) {
         System.out.println("--- CCG Parser.Parser ---\n");
@@ -17,6 +18,7 @@ public class Main {
         lexicon.initializeEntries();
         List<String> sentences = Sentence.getSimpleSentences();
 //        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
+//        List<String> sentences = Sentence.getIncorrectSentences();
         ArrayList<ArrayList<Set<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
         long totalParseTimeStart = Instant.now().toEpochMilli();
@@ -35,13 +37,19 @@ public class Main {
             if(parsedChart == null || parsedChart.size()==0){
                 System.out.println("\tGiven sentence is not grammatically correct!");
             }
+            else if(parsedChart.get(sentence.strip().split(" ").length - 1).get(0).size() == 0){
+                System.out.println("\tGiven sentence is not grammatically correct!");
+            }
             else{
                 System.out.println("\tSentence successfully parsed.");
 //                printChart(parsedChart);
                 Set<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
                 for(ParseTree root : rootTrees){
-                    printRootTreeStackTrace(root,1);
-                    System.out.println("\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n");
+                    if(root.getCategory() == S.getInstance()){
+                        printRootTreeStackTrace(root,1);
+                        break;
+                    }
+//                    System.out.println("\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n");
                 }
             }
             parser.clearChart();

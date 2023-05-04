@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Parser {
     private Lexicon lexicon;
+    //List<List<ConcurrentSet<ParseTree>>>
     private ArrayList<ArrayList<Set<ParseTree>>> chart;
     private ArrayList<Set<ParseTree>> sentenceCategories = new ArrayList<>();
 
@@ -31,6 +32,7 @@ public class Parser {
         this.buildChartCells();
 
         int nullCount = 0;
+        // Log the checkpoint rows.
         // for each span
         for (int span = 2 ; span<this.sentenceCategories.size() + 1 ; span ++){
             //for each start
@@ -70,7 +72,7 @@ public class Parser {
             if(lexicon.containsKey(word)){
                 Set<ParseTree> parseTreeSetFromLexicon = new HashSet<>();
                 for (Category category : this.lexicon.get(word)){
-                    parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word));
+                    parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word, null));
                 }
                 categories.add(parseTreeSetFromLexicon);
             }

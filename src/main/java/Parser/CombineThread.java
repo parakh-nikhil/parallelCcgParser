@@ -4,6 +4,7 @@ import Categories.N;
 import Categories.NP;
 import Language.Grammar;
 import Language.Lexicon;
+import Language.RULES;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class CombineThread extends Thread{
                         Pair<ParseTree, ParseTree> resultChildren = resultCell.children();
                         lock.lock();
                         try{
-                            result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment()));
+                            result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment(), RULES.TYPE_RAISING));
                         }
                         finally {
                             lock.unlock();
