@@ -7,17 +7,16 @@ public final class Sentence {
     // Use a wrong sentence which don't parse at all
     public static List<String> getSimpleSentences(){
         List<String> sentences = new ArrayList<>();
-//        sentences.add("one is less than five"); // 32ms
-//        sentences.add("I like eating apples"); // 1ms
-//        sentences.add("It is a beautiful day"); // 5ms
-//        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA"); // 37ms
-//        sentences.add("I want five apples"); // 1ms
-//        sentences.add("I want to fly a kite in the sky");
-//        sentences.add("I want to drive a car on narrow road"); // 98ms
-//        sentences.add("A quick brown fox jumps over the lazy dog"); // 50ms
-//        sentences.add("I want to drive a big yellow car on bumpy road today"); // 1263ms
-//        sentences.add("I want to drive a big yellow car on road today"); // 445ms
-//        sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
+        sentences.add("one is less than five"); // 32ms
+        sentences.add("I like eating apples"); // 1ms
+        sentences.add("It is a beautiful day"); // 5ms
+        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA"); // 37ms
+        sentences.add("I want five apples"); // 1ms
+        sentences.add("I want to drive a car on narrow road"); // 98ms
+        sentences.add("A quick brown fox jumps over the lazy dog"); // 50ms
+        sentences.add("I want to drive a big yellow car on bumpy road today"); // 1263ms
+        sentences.add("I want to drive a big yellow car on road today"); // 445ms
+        sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
         //TODO: next sentences are too long to parse. Memory issue
 //        sentences.add("I want to drive a big yellow car on the narrow bumpy road"); //908ms (E-NF-1)
 //        sentences.add("I want to drive a big yellow car on the narrow bumpy road today"); //2179ms (E-NF-1)
@@ -38,7 +37,6 @@ public final class Sentence {
 
     public static List<String> getComplexSentenceUsingBasicCombinatoryRules(){
         List<String> sentences = new ArrayList<>();
-//        sentences.add("The young girl with the curly hair , who was reading a book about ancient civilizations , suddenly noticed a bright light shining in the sky above her , which turned out to be a spaceship from a distant planet , piloted by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
         sentences.add("The young girl with the curly hair , who was reading a book about ancient times , suddenly noticed a bright light shining in the sky above her , which turned out to be a car from a distant planet , driven by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
         return sentences;
     }

@@ -3,6 +3,7 @@ package Parser;
 import Categories.*;
 import Language.RULES;
 
+//immutable
 public class ParseTree {
         Category category;
         ParseTree leftChild;
@@ -26,7 +27,6 @@ public class ParseTree {
         this.category = category;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
-//        this.sentenceFragment = String.format("%s %s", leftChild.getSentenceFragment() + rightChild.getSentenceFragment());
         this.sentenceFragment = leftChild.getSentenceFragment() + " " + rightChild.getSentenceFragment();
         this.createdByRule = createdByRule;
     }
@@ -42,7 +42,6 @@ public class ParseTree {
     public Pair<ParseTree,ParseTree> children() {
         return new Pair<>(leftChild, rightChild);
     }
-//        public Pair<String,String> childFragments() { }
 
     public String toString(){
             return this.getCategory().toString();
