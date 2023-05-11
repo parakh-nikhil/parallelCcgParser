@@ -7,11 +7,11 @@ import java.util.*;
 
 public class Parser {
     private Lexicon lexicon;
-    //List<List<ConcurrentSet<ParseTree>>>
-    private ArrayList<ArrayList<Set<ParseTree>>> chart;
-    private ArrayList<Set<ParseTree>> sentenceCategories = new ArrayList<>();
+    private List<List<ConcurrentSet<ParseTree>>> chart = new ArrayList<>();
+//    private ArrayList<ArrayList<Set<ParseTree>>> chart;
+    private ArrayList<ConcurrentSet<ParseTree>> sentenceCategories = new ArrayList<>();
 
-    public Parser(Lexicon lexicon, ArrayList<ArrayList<Set<ParseTree>>> chart) {
+    public Parser(Lexicon lexicon, List<List<ConcurrentSet<ParseTree>>> chart) {
         this.lexicon = lexicon;
         this.chart = chart;
     }
@@ -21,10 +21,14 @@ public class Parser {
         this.chart = new ArrayList<>();
     }
 
-    public ArrayList<ArrayList<Set<ParseTree>>> parse(String sentence) throws Exception {
+    public List<List<ConcurrentSet<ParseTree>>> parse(String sentence) throws Exception {
 
         String[] sentenceArray = sentence.split(" ");
         this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
+//        for(int i = 0 ; i<this.sentenceCategories.size() ; i++){
+//            System.out.println(sentenceArray[i]);
+//            System.out.println(this.sentenceCategories.get(i));
+//        }
         if(this.sentenceCategories == null){
             return null;
         }
@@ -38,12 +42,12 @@ public class Parser {
             //for each start
             for(int start = 0 ; start <= this.sentenceCategories.size() - span ; start++){
                 // for each break
-                Set<ParseTree> result = new HashSet<>();
+                ConcurrentSet<ParseTree> result = new ConcurrentSet<ParseTree>();
                 Set<CombineThread> threads = new HashSet<>();
                 for(int spanBreak = start+1 ; spanBreak < start+span ; spanBreak++){
                     //TODO: consider if [start - spanBreak] and [spanBreak+1 - span) combines
-                    Set<ParseTree> cell1 = this.chart.get(spanBreak-start-1).get(start);
-                    Set<ParseTree> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
+                    ConcurrentSet<ParseTree> cell1 = this.chart.get(spanBreak-start-1).get(start);
+                    ConcurrentSet<ParseTree> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
                     //if yes for any, update the chart[span-1][start] cell
                     CombineThread t = new CombineThread(cell1,cell2,lexicon,result);
                     threads.add(t);
@@ -55,22 +59,34 @@ public class Parser {
                 this.chart.get(span-1).set(start, result);
                 threads.clear();
             }
+            System.out.println();
+//            System.out.println(String.format("ROW %d: Parsed | %s", span-1,this.chart.get(span-1) ));
         }
-        Set<ParseTree> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
-        if (root.contains(null)){
+        ConcurrentSet<ParseTree> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
+        if (root.isEmpty()){
             return null;
         }
+        Iterator<ParseTree> rootIterator = root.iterator();
+        int sCount = 0;
+        while(rootIterator.hasNext()){
+            ParseTree c = rootIterator.next();
+            if(c.getCategory() == S.getInstance()){
+                sCount++;
+            }
+        }
+        System.out.println("Total Root Categories: " + root.size());
+        System.out.println("Sentences = " + sCount);
         return this.chart;
     }
 
 
-    private ArrayList<Set<ParseTree>> getCategoriesFromLexicon(String[] sentenceArray){
-        ArrayList<Set<ParseTree>> categories = new ArrayList<>();
+    private ArrayList<ConcurrentSet<ParseTree>> getCategoriesFromLexicon(String[] sentenceArray){
+        ArrayList<ConcurrentSet<ParseTree>> categories = new ArrayList<>();
         Set<String> notFound = new HashSet<>();
         for(int i = 0 ; i < sentenceArray.length ; i++){
             String word = sentenceArray[i];
             if(lexicon.containsKey(word)){
-                Set<ParseTree> parseTreeSetFromLexicon = new HashSet<>();
+                ConcurrentSet<ParseTree> parseTreeSetFromLexicon = new ConcurrentSet<ParseTree>();
                 for (Category category : this.lexicon.get(word)){
                     parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word, null));
                 }
@@ -91,9 +107,9 @@ public class Parser {
     private void buildChartCells(){
         this.chart.add(this.sentenceCategories);
         for(int i = 1; i < this.sentenceCategories.size() ; i++){
-            ArrayList<Set<ParseTree>> chartRow = new ArrayList<>();
+            ArrayList<ConcurrentSet<ParseTree>> chartRow = new ArrayList<>();
             for (int j = 0 ; j < this.sentenceCategories.size()-i ; j++){
-                chartRow.add(new HashSet<>());
+                chartRow.add(new ConcurrentSet<ParseTree>());
             }
             this.chart.add(chartRow);
         }
@@ -103,7 +119,8 @@ public class Parser {
     public void clearChart(){
         this.chart.clear();
     }
-    public ArrayList<ArrayList<Set<ParseTree>>> getChart(){
+
+    public List<List<ConcurrentSet<ParseTree>>> getChart(){
         return this.chart;
     }
 }

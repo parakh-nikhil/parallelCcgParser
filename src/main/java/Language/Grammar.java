@@ -40,7 +40,7 @@ public class Grammar {
 
         // Forward Application:
         // TODO: function cant be forward func composition
-        if(slashCat1!=null && slashCat2 == null){
+        if(slashCat1!=null){
             // (X/Y) + (Y) = X
             if(tree1Rule != RULES.FORWARD_COMPOSITION && slashCat1.isRightSlash() && slashCat1.getArgument() == cat2){
                 Category result = lexicon.buildCategory(slashCat1.getResult());
@@ -49,7 +49,7 @@ public class Grammar {
         }
 
         // Backward Application
-        else if(slashCat1==null && slashCat2 != null){
+        else if( slashCat2 != null){
             // Y + (X\Y) = X
             if(tree2Rule != RULES.BACKWARD_COMPOSITION && !slashCat2.isRightSlash() && slashCat2.getArgument() == cat1){
                 return new ParseTree(lexicon.buildCategory(slashCat2.getResult()),tree1,tree2, RULES.BACKWARD_APPLICATION);

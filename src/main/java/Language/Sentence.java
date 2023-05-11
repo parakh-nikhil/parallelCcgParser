@@ -7,20 +7,20 @@ public final class Sentence {
     // Use a wrong sentence which don't parse at all
     public static List<String> getSimpleSentences(){
         List<String> sentences = new ArrayList<>();
-        sentences.add("one is less than five"); // 32ms
-        sentences.add("I like eating apples"); // 1ms
-        sentences.add("It is a beautiful day"); // 5ms
-        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA"); // 37ms
-        sentences.add("I want five apples"); // 1ms
-        sentences.add("I want to drive a car on narrow road"); // 98ms
-        sentences.add("A quick brown fox jumps over the lazy dog"); // 50ms
-        sentences.add("I want to drive a big yellow car on bumpy road today"); // 1263ms
-        sentences.add("I want to drive a big yellow car on road today"); // 445ms
-        sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
+//        sentences.add("one is less than five"); // 32ms
+//        sentences.add("I like eating apples"); // 1ms
+//        sentences.add("It is a beautiful day"); // 5ms
+//        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA"); // 37ms
+//        sentences.add("I want five apples"); // 1ms
+//        sentences.add("I want to drive a car on narrow road"); // 98ms
+//        sentences.add("A quick brown fox jumps over the lazy dog"); // 50ms
+//        sentences.add("I want to drive a big yellow car on bumpy road today"); // 1263ms
+//        sentences.add("I want to drive a big yellow car on road today"); // 445ms
+//        sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
         //TODO: next sentences are too long to parse. Memory issue
 //        sentences.add("I want to drive a big yellow car on the narrow bumpy road"); //908ms (E-NF-1)
 //        sentences.add("I want to drive a big yellow car on the narrow bumpy road today"); //2179ms (E-NF-1)
-//        sentences.add("I want to drive a big yellow car on the narrow bumpy road to home today"); //ms (E-NF-1)
+        sentences.add("I want to drive a big yellow car on the narrow bumpy road to home today"); //ms (E-NF-1)
 //        sentences.add("any float that is passing is greater than or equal to one or less than or equal to five");
         return sentences;
     }

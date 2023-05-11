@@ -5,6 +5,7 @@ import Parser.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class Main {
         List<String> sentences = Sentence.getSimpleSentences();
 //        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
 //        List<String> sentences = Sentence.getIncorrectSentences();
-        ArrayList<ArrayList<Set<ParseTree>>> parsedChart = new ArrayList<>();
+        List<List<ConcurrentSet<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
         long totalParseTimeStart = Instant.now().toEpochMilli();
         for(String sentence : sentences){
@@ -43,8 +44,10 @@ public class Main {
             else{
                 System.out.println("\tSentence successfully parsed.");
 //                printChart(parsedChart);
-                Set<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
-                for(ParseTree root : rootTrees){
+                ConcurrentSet<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
+                Iterator<ParseTree> rootTreesIterator = rootTrees.iterator();
+                while(rootTreesIterator.hasNext()){
+                    ParseTree root = rootTreesIterator.next();
                     if(root.getCategory() == S.getInstance()){
                         printRootTreeStackTrace(root,1);
                         break;
