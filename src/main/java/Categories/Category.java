@@ -11,7 +11,6 @@ public abstract class Category {
 
     @Override
     public abstract String toString();
-
 }
 
 

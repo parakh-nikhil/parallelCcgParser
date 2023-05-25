@@ -7,17 +7,18 @@ import Language.Lexicon;
 import Language.RULES;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CombineThread extends Thread{
 
-    Set<ParseTree> cell1;
-    Set<ParseTree> cell2;
+    ConcurrentSet<ParseTree> cell1;
+    ConcurrentSet<ParseTree> cell2;
     Lexicon lexicon;
-    Set<ParseTree> result;
+    ConcurrentSet<ParseTree> result;
 
-    public CombineThread(Set<ParseTree> cell1, Set<ParseTree> cell2, Lexicon lexicon,Set<ParseTree> result){
+    public CombineThread(ConcurrentSet<ParseTree> cell1, ConcurrentSet<ParseTree> cell2, Lexicon lexicon,ConcurrentSet<ParseTree> result){
         this.cell1 = cell1;
         this.cell2 = cell2;
         this.lexicon = lexicon;
@@ -26,9 +27,12 @@ public class CombineThread extends Thread{
 
     @Override
     public void run() {
-        ReentrantLock lock = new ReentrantLock();
-        for(ParseTree c1 : this.cell1){
-            for(ParseTree c2 : this.cell2){
+        Iterator<ParseTree> cell1Iterator = cell1.iterator();
+        while(cell1Iterator.hasNext()){
+            Iterator<ParseTree> cell2Iterator = cell2.iterator();
+            ParseTree c1 = cell1Iterator.next();
+            while(cell2Iterator.hasNext()){
+                ParseTree c2 = cell2Iterator.next();
                 ParseTree resultCell = null;
                 try {
                     resultCell = Grammar.combine(c1,c2, this.lexicon);
@@ -36,23 +40,11 @@ public class CombineThread extends Thread{
                     throw new RuntimeException(e);
                 }
                 if(resultCell != null){
-                    lock.lock();
-                    try{
-                        result.add(resultCell);
-                    }finally {
-                        lock.unlock();
-                    }
-
+                    this.result.add(resultCell);
                     // Type raising N to NP
                     if(resultCell.getCategory() == N.getInstance()){
                         Pair<ParseTree, ParseTree> resultChildren = resultCell.children();
-                        lock.lock();
-                        try{
-                            result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment(), RULES.TYPE_RAISING));
-                        }
-                        finally {
-                            lock.unlock();
-                        }
+                        result.add(new ParseTree(NP.getInstance(), resultChildren.getKey(),resultChildren.getVal(), resultCell.getSentenceFragment(), RULES.TYPE_RAISING));
                     }
                 }
             }
