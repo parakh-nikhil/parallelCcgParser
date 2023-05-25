@@ -19,8 +19,8 @@ public final class Sentence {
 //        sentences.add("I want to drive a big car on the narrow bumpy road"); // 3168ms
         //TODO: next sentences are too long to parse. Memory issue
 //        sentences.add("I want to drive a big yellow car on the narrow bumpy road"); //908ms (E-NF-1)
-//        sentences.add("I want to drive a big yellow car on the narrow bumpy road today"); //2179ms (E-NF-1)
-        sentences.add("I want to drive a big yellow car on the narrow bumpy road to home today"); //ms (E-NF-1)
+//        sentences.add("I want to drive a big yellow car on the narrow bumpy road today"); //2179ms (E-NF-1) | new time: 165ms
+//        sentences.add("I want to drive a big yellow car on the narrow bumpy road to home today"); //ms (E-NF-1)
 //        sentences.add("any float that is passing is greater than or equal to one or less than or equal to five");
         return sentences;
     }
@@ -37,7 +37,9 @@ public final class Sentence {
 
     public static List<String> getComplexSentenceUsingBasicCombinatoryRules(){
         List<String> sentences = new ArrayList<>();
-        sentences.add("The young girl with the curly hair , who was reading a book about ancient times , suddenly noticed a bright light shining in the sky above her , which turned out to be a car from a distant planet , driven by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
+//        sentences.add("The young girl with the curly hair , who was reading a book about ancient times , suddenly noticed a bright light shining in the sky above her , which turned out to be a car from a distant planet , driven by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
+        sentences.add("The young girl with the curly hair suddenly noticed a bright light shining , which turned out to be a car from a distant planet , driven by a man");
+//        sentences.add("The young girl noticed a bright light shining in the sky above her , which turned out to be a car from a distant planet driven by a man"); //278ms
         return sentences;
     }
 
@@ -45,6 +47,25 @@ public final class Sentence {
         List<String> incorrectSentences = new ArrayList<>();
         incorrectSentences.add("apple car my friend is there boat money , , ");
         return incorrectSentences;
+    }
+
+    public static List<String> getSoftwareSentences(){
+        List<String> softwareSentences = new ArrayList<>();
+        softwareSentences.add("one is less than five");
+        softwareSentences.add("one is even");
+        softwareSentences.add("every number is even");
+        softwareSentences.add("every number is a number");
+        softwareSentences.add("one is equal to five");
+        softwareSentences.add("one is less than or equal to five");
+        softwareSentences.add("one is passing");
+        softwareSentences.add("one is not passing");
+        softwareSentences.add("any float that is greater than or equal to one and less than five is not passing");
+        softwareSentences.add("any float that is greater than or equal to one and less than five is passing");
+        softwareSentences.add("any float is not passing");
+        softwareSentences.add("any float that is passing is greater than or equal to three or less than or equal to five");
+        softwareSentences.add("one is an exception");
+        softwareSentences.add("one throws an exception");
+        return softwareSentences;
     }
 }
 

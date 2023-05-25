@@ -59,7 +59,7 @@ public class Parser {
                 this.chart.get(span-1).set(start, result);
                 threads.clear();
             }
-            System.out.println();
+//            System.out.println();
 //            System.out.println(String.format("ROW %d: Parsed | %s", span-1,this.chart.get(span-1) ));
         }
         ConcurrentSet<ParseTree> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
@@ -74,8 +74,8 @@ public class Parser {
                 sCount++;
             }
         }
-        System.out.println("Total Root Categories: " + root.size());
-        System.out.println("Sentences = " + sCount);
+//        System.out.println("Total Root Categories: " + root.size());
+//        System.out.println("Sentences = " + sCount);
         return this.chart;
     }
 
@@ -87,8 +87,12 @@ public class Parser {
             String word = sentenceArray[i];
             if(lexicon.containsKey(word)){
                 ConcurrentSet<ParseTree> parseTreeSetFromLexicon = new ConcurrentSet<ParseTree>();
+                Map<String, Boolean> fixDuplicateMap = new HashMap<>();
                 for (Category category : this.lexicon.get(word)){
-                    parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word, null));
+                    if(!fixDuplicateMap.containsKey(category.toString())){
+                        parseTreeSetFromLexicon.add(new ParseTree(category, null,null, word, null));
+                        fixDuplicateMap.put(category.toString(), true);
+                    }
                 }
                 categories.add(parseTreeSetFromLexicon);
             }
