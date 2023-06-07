@@ -1,9 +1,0 @@
-Parser related issues
-    1) Should keys be case-sensitive or not
-
-Good software design issues
-    1) Catch Exceptions properly. Currently only implementing what intelliJ suggested.
-        Use try/catch instead.
-
-To-Do
-    1) Check with entries with multiple categories
