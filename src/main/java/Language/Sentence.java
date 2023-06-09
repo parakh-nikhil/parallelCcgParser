@@ -7,6 +7,7 @@ public final class Sentence {
     // Use a wrong sentence which don't parse at all
     public static List<String> getSimpleSentences(){
         List<String> sentences = new ArrayList<>();
+        sentences.add("i need a square blue or round yellow pillow");
 //        sentences.add("one is less than five"); // 32ms
 //        sentences.add("I like eating apples"); // 1ms
 //        sentences.add("It is a beautiful day"); // 5ms

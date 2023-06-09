@@ -8,7 +8,6 @@ import java.util.*;
 public class Parser {
     private Lexicon lexicon;
     private List<List<ConcurrentSet<ParseTree>>> chart = new ArrayList<>();
-//    private ArrayList<ArrayList<Set<ParseTree>>> chart;
     private ArrayList<ConcurrentSet<ParseTree>> sentenceCategories = new ArrayList<>();
 
     public Parser(Lexicon lexicon, List<List<ConcurrentSet<ParseTree>>> chart) {
@@ -25,17 +24,12 @@ public class Parser {
 
         String[] sentenceArray = sentence.split(" ");
         this.sentenceCategories = getCategoriesFromLexicon(sentenceArray);
-//        for(int i = 0 ; i<this.sentenceCategories.size() ; i++){
-//            System.out.println(sentenceArray[i]);
-//            System.out.println(this.sentenceCategories.get(i));
-//        }
         if(this.sentenceCategories == null){
             return null;
         }
         //start building chart
         this.buildChartCells();
 
-        int nullCount = 0;
         // Log the checkpoint rows.
         // for each span
         for (int span = 2 ; span<this.sentenceCategories.size() + 1 ; span ++){
@@ -45,7 +39,6 @@ public class Parser {
                 ConcurrentSet<ParseTree> result = new ConcurrentSet<ParseTree>();
                 Set<CombineThread> threads = new HashSet<>();
                 for(int spanBreak = start+1 ; spanBreak < start+span ; spanBreak++){
-                    //TODO: consider if [start - spanBreak] and [spanBreak+1 - span) combines
                     ConcurrentSet<ParseTree> cell1 = this.chart.get(spanBreak-start-1).get(start);
                     ConcurrentSet<ParseTree> cell2 = this.chart.get((start + span ) - spanBreak - 1).get(spanBreak);
                     //if yes for any, update the chart[span-1][start] cell
@@ -59,23 +52,11 @@ public class Parser {
                 this.chart.get(span-1).set(start, result);
                 threads.clear();
             }
-//            System.out.println();
-//            System.out.println(String.format("ROW %d: Parsed | %s", span-1,this.chart.get(span-1) ));
         }
         ConcurrentSet<ParseTree> root = this.chart.get(this.sentenceCategories.size() - 1).get(0);
         if (root.isEmpty()){
             return null;
         }
-        Iterator<ParseTree> rootIterator = root.iterator();
-        int sCount = 0;
-        while(rootIterator.hasNext()){
-            ParseTree c = rootIterator.next();
-            if(c.getCategory() == S.getInstance()){
-                sCount++;
-            }
-        }
-//        System.out.println("Total Root Categories: " + root.size());
-//        System.out.println("Sentences = " + sCount);
         return this.chart;
     }
 

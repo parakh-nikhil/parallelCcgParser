@@ -17,11 +17,9 @@ public class Generator {
         for(ParseTree parse : this.sentenceTrees){
             System.out.println("\nTree printed from SemanticsGenerator Package");
             this.printRootTreeStackTrace(parse,1);
-            break;
         }
     }
-
-    public static void printRootTreeStackTrace(ParseTree root, int spaces){
+    public void printRootTreeStackTrace(ParseTree root, int spaces){
         if(root == null){
             System.out.println(String.format("%s%s) %s"," ".repeat(2*spaces),spaces,null));
         }

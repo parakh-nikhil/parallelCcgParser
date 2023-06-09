@@ -28,12 +28,13 @@ public abstract class LexiconPopulator {
     }
 
     protected Category PUNC(){
-        return new PUNC();
+        return PUNC.getInstance();
     }
 
     protected Category conj(){
-        return new CONJ();
+        return CONJ.getInstance();
     }
+
     protected Category RSlash(Category result, Category argument){
         return new RightSlash(result, argument);
     }
