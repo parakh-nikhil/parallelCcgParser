@@ -49,5 +49,24 @@ public final class Sentence {
         sentences.add("The young girl with the curly hair , who was reading a book about ancient times , suddenly noticed a bright light shining in the sky above her , which turned out to be a car from a distant planet , driven by a friendly alien who had come to visit Earth and learn about its cultures and customs .");
         return sentences;
     }
+
+    public static List<String> getSoftwareSentences(){
+        List<String> softwareSentences = new ArrayList<>();
+        softwareSentences.add("one is less than five");
+        softwareSentences.add("one is even");
+        softwareSentences.add("every number is even");
+        softwareSentences.add("every number is a number");
+        softwareSentences.add("one is equal to five");
+        softwareSentences.add("one is less than or equal to five");
+        softwareSentences.add("one is passing");
+        softwareSentences.add("one is not passing");
+        softwareSentences.add("any float that is greater than or equal to one and less than five is not passing");
+        softwareSentences.add("any float that is greater than or equal to one and less than five is passing");
+        softwareSentences.add("any float is not passing");
+        softwareSentences.add("any float that is passing is greater than or equal to three or less than or equal to five");
+        softwareSentences.add("one is an exception");
+        softwareSentences.add("one throws an exception");
+        return softwareSentences;
+    }
 }
 
