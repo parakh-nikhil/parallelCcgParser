@@ -67,5 +67,30 @@ public final class Sentence {
         softwareSentences.add("one throws an exception");
         return softwareSentences;
     }
+
+    public static List<String> getFinalSentences(){
+        List<String> sentences = new ArrayList<>();
+        sentences.add("one is less than five");
+        sentences.add("one is even");
+        sentences.add("every number is even");
+        sentences.add("every number is a number");
+        sentences.add("one is equal to five");
+        sentences.add("one is less than or equal to five");
+        sentences.add("one is passing");
+        sentences.add("one is not passing");
+        sentences.add("any float that is greater than or equal to one and less than five is not passing");
+        sentences.add("any float that is greater than or equal to one and less than five is passing");
+        sentences.add("one is an exception");
+        sentences.add("one throws an exception");
+        sentences.add("any float is not passing");
+        sentences.add("I booked a flight to PHILADELPHIA from CALIFORNIA");
+        sentences.add("I want five apples");
+        sentences.add("I want to drive a big yellow car on bumpy road today");
+        sentences.add("I want to drive a big yellow car on the narrow bumpy road today");
+        sentences.add("I want to drive a big yellow car on the narrow bumpy road to home today");
+        return sentences;
+    }
+
 }
+
 

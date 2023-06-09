@@ -17,10 +17,7 @@ public class Main {
         //TODO: should keys be case-sensitive or not
         Lexicon lexicon = new Lexicon();
         lexicon.initializeEntries();
-//        List<String> sentences = Sentence.getSimpleSentences();
-        List<String> sentences = Sentence.getSoftwareSentences();
-//        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
-//        List<String> sentences = Sentence.getIncorrectSentences();
+        List<String> sentences = Sentence.getFinalSentences();
         List<List<ConcurrentSet<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
         long totalParseTimeStart = Instant.now().toEpochMilli();
@@ -45,16 +42,16 @@ public class Main {
             else{
                 System.out.println("\tSentence successfully parsed.");
 //                printChart(parsedChart);
-                ConcurrentSet<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
-                Iterator<ParseTree> rootTreesIterator = rootTrees.iterator();
-                while(rootTreesIterator.hasNext()){
-                    ParseTree root = rootTreesIterator.next();
-                    if(root.getCategory() == S.getInstance()){
-                        printRootTreeStackTrace(root,1);
-                        break;
-                    }
-//                    System.out.println("\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n");
-                }
+//                ConcurrentSet<ParseTree> rootTrees = parsedChart.get(sentence.strip().split(" ").length - 1).get(0);
+//                Iterator<ParseTree> rootTreesIterator = rootTrees.iterator();
+//                while(rootTreesIterator.hasNext()){
+//                    ParseTree root = rootTreesIterator.next();
+//                    if(root.getCategory() == S.getInstance()){
+//                        printRootTreeStackTrace(root,1);
+//                        break;
+//                    }
+////                    System.out.println("\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n");
+//                }
             }
             parser.clearChart();
             System.out.println("\n-----------------------------------------------------------------");
