@@ -16,11 +16,13 @@ public class Main {
         Lexicon lexicon = new Lexicon();
         lexicon.initializeEntries();
 //        List<String> sentences = Sentence.getSimpleSentences();
-        List<String> sentences = Sentence.getSoftwareSentences();
+        List<String> sentences = Sentence.getFinalSentences();
 //        List<String> sentences = Sentence.getComplexSentenceUsingBasicCombinatoryRules();
         ArrayList<ArrayList<Set<ParseTree>>> parsedChart = new ArrayList<>();
         Parser parser = new Parser(lexicon);
+        long totalParseTimeStart = Instant.now().toEpochMilli();
         for(String sentence : sentences){
+
             sentence = sentence.strip();
             System.out.println("Sentence: " + sentence);
             System.out.println("Parsing...");
@@ -45,12 +47,8 @@ public class Main {
             }
             parser.clearChart();
             System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------");
-
         }
-
-
-
-
+        System.out.println("TOTAL CONCURRENT PARSE TIME: " + (Instant.now().toEpochMilli() - totalParseTimeStart) + "ms");
     }
 
     public static void printChart(ArrayList<ArrayList<Set<ParseTree>>> chart){
